@@ -4,7 +4,7 @@
 # cs207-FinalProject: A Chemical Kinetics Library
 ## Final Project repository for CS207 Team 3:
 ### Team Members: Jiacheng Shi, Weihang Zhang, & Andrew Lund
-=========
+==============
 
 
 Introduction: The purpose of our library is to Describe what problem the code is solving. You may borrow the Latex expressions from my lecture notes. Discuss in broad strokes what the purpose of the code is along with any features. Do not describe the details of the code yet.
