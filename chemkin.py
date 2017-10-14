@@ -8,8 +8,6 @@ three-body, and reversible).
 For more infomation regarding chemical kinetics, please visit:
 https://en.wikipedia.org/wiki/Chemical_kinetics
 """
-
-
 import numpy as np
 
 class Reaction():
@@ -36,7 +34,7 @@ class Reaction():
 
 	EXAMPLES:
 	========
-	TBD
+	>>>TBD
 	"""
 	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
 		"""Returns class attributes:
@@ -178,31 +176,31 @@ class Reaction():
 
 
 class Reaction_system():
-		"""Reaction_system Class for chemical kinetics calculations
+	"""Reaction_system Class for chemical kinetics calculations
 
-		ATRIBUTES:
-		=========
-		concs: 		list of floats
-					Reactant concentrations
-					Must be positive
-		nu_react: 	list of floats
-		 			Stoichiometric coefficients for reactants
-		nu_prod: 	list of floats
-					Stoichiometric coefficients for products
-		ks:			list of floats
-					Reaction rate coefficients
+	ATRIBUTES:
+	=========
+	concs: 		list of floats
+				Reactant concentrations
+				Must be positive
+	nu_react: 	list of floats
+	 			Stoichiometric coefficients for reactants
+	nu_prod: 	list of floats
+				Stoichiometric coefficients for products
+	ks:			list of floats
+				Reaction rate coefficients
 
-		METHODS:
-		=======
-		.__init__: init attributes
-		.init_matrices: returns reactant and product matrices
-		.progress_rate: returns progress rate of system of reactions
-		.reaction_rate: returns reaction rate of system of reactions
+	METHODS:
+	=======
+	.__init__: init attributes
+	.init_matrices: returns reactant and product matrices
+	.progress_rate: returns progress rate of system of reactions
+	.reaction_rate: returns reaction rate of system of reactions
 
-		EXAMPLES:
-		========
-		TBD
-		"""
+	EXAMPLES:
+	========
+	>>> TBD
+	"""
 	def __init__(self, reactions, order, concs, T):
 		"""Returns class attributes, and sets reaction
 		temperatures and reaction rate coefficients
@@ -239,7 +237,7 @@ class Reaction_system():
 
 		EXAMPLES:
 		========
-		TBD
+		>>> TBD
 		"""
 		nu_reac = np.zeros((len(order), len(reactions)))
 		nu_prod = np.zeros((len(order), len(reactions)))
@@ -257,11 +255,12 @@ class Reaction_system():
 		RETURNS:
 		========
 		omega: numpy array of floats
-			   size: num_reactions
+			   size: number of reactions
 			   progress rate of each reaction
 
 		EXAMPLES:
 		=========
+		This should be updated
 		>>> progress_rate(np.array([[2.0, 1.0], [1.0, 0.0], [0.0, 1.0]]), np.array([2.0, 1.0, 1.0]), 10.0)
 		array([ 40.,  20.])
 		"""
@@ -286,11 +285,18 @@ class Reaction_system():
 		RETURNS:
 		========
 		f: numpy array of floats
-		   size: num_species
-		   reaction rate of each specie
+		   size: number of species
+		   reaction rate of each species
 
 		EXAMPLES:
 		=========
+		>>> data = read_data('t.xml')
+		concs = [2., 1., .5, 1., 1.]
+		T = 1500
+		system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+		system.reaction_rate()
+		[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
+  		-4.47993847e+06]
 		"""
 		rates = self.progress_rate()
 		print(rates)
