@@ -11,11 +11,11 @@ class Reaction():
 		self.coef = coef
 
 	def set_reac_coefs(self, T):
-		if self.coef_type == 'const':
+		if self.coef_type == 'Constant':
 			self.k = self.init_const_coef(self.coef['k'])
-		elif self.coef_type == 'A':
+		elif self.coef_type == 'Arrhenius':
 			self.k = self.init_arr_coef(self.coef['A'], self.coef['E'], T)
-		elif self.coef_type == 'MA':
+		elif self.coef_type == 'modifiedArrhenius':
 			self.k = self.init_marr_coef(self.coef['A'], self.coef['b'], self.coef['E'], T)	
 
 	def init_const_coef(self, k):
@@ -118,32 +118,28 @@ class Reaction():
 		if R < 0.0:
 			raise ValueError("R = {0:18.16e}:  Negative ideal gas constant is prohibited!".format(R))
 
-		return A * T**b * np.exp(-E / R / T)
+		return A * (T**b) * np.exp(-E / R / T)
 
 
 class Reaction_system():
-	def __init__(self, reactions, concs, T):
+	def __init__(self, reactions, order, concs, T):
 		self.concs = concs
-		self.nu_reac, self.nu_prod = self.init_matrices(reactions)
+		self.nu_react, self.nu_prod = self.init_matrices(reactions, order)
+		self.ks = []
 		for reac in reactions:
 			reac.set_reac_coefs(T)
+			self.ks.append(reac.k)
 
 
-	def init_matrices(self, reactions):
-		participants = []
-		for reac in reactions:
-			participants += reac.reactants.keys()
-			participants += reac.products.keys()
-		participants = set(participants)
-
-		nu_reac = np.zeros(len(participants), len(reactions))
-		nu_prod = np.zeros(len(participants), len(reactions))
-		for i in range(len(participants)):
+	def init_matrices(self, reactions, order):
+		nu_reac = np.zeros((len(order), len(reactions)))
+		nu_prod = np.zeros((len(order), len(reactions)))
+		for i in range(len(order)):
 			for j in range(len(reactions)):
-				if participants[i] in reactions[j].reactants:
-					nu_reac[i, j] = reactions[j].reactants[participants[i]]
-				if participants[i] in reactions[j].products:
-					nu_prod[i, j] = reactions[j].products[participants[i]]
+				if order[i] in reactions[j].reactants:
+					nu_reac[i, j] = reactions[j].reactants[order[i]]
+				if order[i] in reactions[j].products:
+					nu_prod[i, j] = reactions[j].products[order[i]]
 		return nu_reac, nu_prod
 
 	def progress_rate(self):
@@ -160,12 +156,13 @@ class Reaction_system():
 		>>> progress_rate_2(np.array([[2.0, 1.0], [1.0, 0.0], [0.0, 1.0]]), np.array([2.0, 1.0, 1.0]), 10.0)
 		array([ 40.,  20.])
 		"""
-		progress = self.ks # Initialize progress rates with reaction rate coefficients
-		for jdx, rj in enumerate(progress):
-			if rj < 0:
-				raise ValueError("k = {0:18.16e}:  Negative reaction rate coefficients are prohibited!".format(rj))
+
+		progress = self.ks.copy() # Initialize progress rates with reaction rate coefficients
+		for jdx, prog in enumerate(progress):
+			if prog < 0:
+				raise ValueError("k = {0:18.16e}:  Negative reaction rate coefficients are prohibited!".format(prog))
 			for idx, xi in enumerate(self.concs):
-				nu_ij = self.nu_react[idx,jdx]
+				nu_ij = self.nu_react[idx, jdx]
 				if xi  < 0.0:
 					raise ValueError("x{0} = {1:18.16e}:  Negative concentrations are prohibited!".format(idx, xi))
 				if nu_ij < 0:
@@ -186,6 +183,17 @@ class Reaction_system():
 		EXAMPLES:
 		=========
 		"""
-		rj = self.progress_rate()
+		rates = self.progress_rate()
+		print(rates)
 		nu = self.nu_prod - self.nu_react
-		return np.dot(nu, rj)
+		
+		return np.dot(nu, rates)
+		# reac_rates = []
+		# for i in range(len(nu)):
+		# 	cum = 0
+		# 	for j in range(len(rates)):
+		# 		cum += nu[i][j] * rates[j]
+		# 	reac_rates.append(cum)
+		# return reac_rates
+
+		

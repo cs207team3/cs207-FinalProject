@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-from chemkin import Reaction
+from chemkin import *
 
 def string_to_dict(s):
     # 'H:1 O2:1' -> {'H': 1.0, 'O2': 1.0}
@@ -51,7 +51,10 @@ def read_data(filename):
     return data
 
 
-data = read_data('rxns.xml')
-
+data = read_data('t.xml')
 print(data)
 print(data['reactions']['test_mechanism'][0])
+concs = [2., 1., .5, 1., 1.]
+T = 1500
+system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+print(system.reaction_rate())
