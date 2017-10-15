@@ -10,7 +10,7 @@
 ### User's Guide
 
 **Introduction:**
-
+...Please see the chart below for equation symbols and their meaning...
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_form.png "Reaction Form")
@@ -46,16 +46,16 @@ We are not releasing this code as a package yet, but when we do that this sectio
 
 ### Basic Usage:
 After checking out this repository:
-1. import relative class and functions from parser.py and chemkin.py.
+1. Import relative classes and functions from parser.py and chemkin.py.
 
   ```
   from parser import *
   from chemkin import *
   ```
 
-2. User can obtain reaction data by parsing an existing xml file using `read_data()` function or manually create reactions using the constructor in `Reaction()` class.
+2. You can obtain reaction data by parsing an properly formatted .xml file using `read_data()` function or by manually creating reactions using the constructor in the `Reaction()` class.
 
-3. To calculate the reaction rate of a system, a user also needs to specify the current concentration of each species and the temperature under which the reaction rate is calculated.
+3. To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
 
 ### Code Example:
 ```
