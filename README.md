@@ -78,4 +78,4 @@ reaction_rates = system.reaction_rate()
 
 Provide a few examples on using your software in some common situations. You may want to show how the code works with a small set of reactions.
 
-Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the '"<phase>"' tag in the .xml file.
+Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.
