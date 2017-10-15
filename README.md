@@ -38,7 +38,7 @@ All the code related to this library can be found in this repository, specifical
 
 In order to run the test suite accompanying these files, do the following:
 
-**<TODO>**
+`pytest --doctest-modules --cov-report term-missing --cov chemkin`
 
 ----
 
@@ -46,11 +46,36 @@ We are not releasing this code as a package yet, but when we do that this sectio
 
 ----
 
-### Basic Usage and Examples:
-After downloading the files parser.py and chemkin.py:
-1. Open a new python file
-2. import parser and chemkin
-3.
+### Basic Usage:
+After checking out this repository:
+1. import relative class and functions from parser.py and chemkin.py.
+
+  ```
+  from parser import *
+  from chemkin import *
+  ```
+  
+2. User can obtain reaction data by parsing an existing xml file using `read_data()` function or manually create reactions using the constructor in `Reaction()` class.
+
+3. To calculate the reaction rate of a system, a user also needs to specify the current concentration of each species and the temperature under which the reaction rate is calculated.
+
+### Code Example:
+```
+from chemkin import *
+from parser import *
+# parse data from xml file
+data = read_data('t.xml')
+# specify concentration list and current temperature
+concs = [2., 1., .5, 1., 1.]
+T = 1500
+# create a system of the reactions
+system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+# calculate reaction rates
+reaction_rates = system.reaction_rate()
+```
+
+** TODO?: provide a more specific example (maybe we can use the example from L11 exercise) **
+
 Provide a few examples on using your software in some common situations. You may want to show how the code works with a small set of reactions.
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the '<phase>' tag
