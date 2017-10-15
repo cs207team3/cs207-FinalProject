@@ -235,6 +235,9 @@ class Reaction_system():
 		self.concs
 		self.T
 		"""
+		if any(c < 0 for c in concs):
+			raise ValueError('Concentration should not be Negative!')
+
 		self.concs = concs
 		self.nu_react, self.nu_prod = self.init_matrices(reactions, order)
 		self.ks = []
