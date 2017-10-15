@@ -62,17 +62,18 @@ After checking out this repository:
 
 ### Code Example:
 ```
-from chemkin import *
-from parser import *
-# parse data from xml file
-data = read_data('t.xml')
-# specify concentration list and current temperature
-concs = [2., 1., .5, 1., 1.]
-T = 1500
-# create a system of the reactions
-system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
-# calculate reaction rates
-reaction_rates = system.reaction_rate()
+>>> from chemkin import *
+>>> from parser import *
+>>> # parse data from xml file
+>>> data = read_data('t.xml')
+>>> # specify concentration list and current temperature
+>>> concs = [2., 1., .5, 1., 1.]
+>>> T = 1500
+>>> # create a system of the reactions
+>>> system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+>>> # calculate reaction rates
+>>> reaction_rates = system.reaction_rate()
+[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
 ```
 
 ** TODO?: provide a more specific example (maybe we can use the example from L11 exercise) **
