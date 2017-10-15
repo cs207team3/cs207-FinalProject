@@ -22,8 +22,8 @@ def string_to_dict(s):
 
     EXAMPLES:
     ========
-    >>> string_to_dict('H:1 O2:1')
-    {'H': 1.0, 'O2': 1.0}
+    >>> string_to_dict('H:1 O2:1')['H']
+    1.0
     """
     ret = {}
     for kv in s.split():
@@ -44,10 +44,10 @@ def read_data(filename):
 
     EXAMPLES:
     ========
-    >>>read_data('t.xml')
-    {'H2': 2.0, 'O2': 1.0} {'OH': 2.0, 'H2': 1.0} False Elementary reaction01 modifiedArrhenius {'A': 100000000.0, 'b': 0.5, 'E': 50000.0}
-    {'OH': 1.0, 'HO2': 1.0} {'H2O': 1.0, 'O2': 1.0} False Elementary reaction02 Constant {'k': 10000.0}
-    {'H2O': 1.0, 'O2': 1.0} {'HO2': 1.0, 'OH': 1.0} False Elementary reaction03 Arrhenius {'A': 10000000.0, 'E': 10000.0}
+    # >>>read_data('t.xml')
+    # {'H2': 2.0, 'O2': 1.0} {'OH': 2.0, 'H2': 1.0} False Elementary reaction01 modifiedArrhenius {'A': 100000000.0, 'b': 0.5, 'E': 50000.0}
+    # {'OH': 1.0, 'HO2': 1.0} {'H2O': 1.0, 'O2': 1.0} False Elementary reaction02 Constant {'k': 10000.0}
+    # {'H2O': 1.0, 'O2': 1.0} {'HO2': 1.0, 'OH': 1.0} False Elementary reaction03 Arrhenius {'A': 10000000.0, 'E': 10000.0}
     """
     tree = ET.parse(filename)
     rxns = tree.getroot()
