@@ -26,6 +26,7 @@ The progress rate for each reaction is given by:
 The reaction rate of each specie i can be written as:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_rate.png "Reaction Rate")
+----
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/variables.png "Variables")
 
 ------
