@@ -34,7 +34,7 @@ class Reaction():
 
 	EXAMPLES:
 	========
-	# >>>TBD
+	>>>TBD
 	"""
 	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
 		"""Returns class attributes:
@@ -86,8 +86,8 @@ class Reaction():
 
 		EXAMPLES:
 		=========
-		# >>> init_const_coef(5.0)
-		# 5.0
+		>>> init_const_coef(5.0)
+		5.0
 		"""
 		if k < 0:
 			raise ValueError("Negative reaction rate coefficients are prohibited.")
@@ -118,8 +118,8 @@ class Reaction():
 
 		EXAMPLES:
 		=========
-		# >>> init_arr_coef(2.0, 3.0, 100.0)
-		# 1.9927962618542914
+		>>> init_arr_coef(2.0, 3.0, 100.0)
+		1.9927962618542914
 		"""
 
 		if A < 0.0:
@@ -159,8 +159,8 @@ class Reaction():
 
 		EXAMPLES:
 		=========
-		# >>> init_marr_coef(2.0, -0.5, 3.0, 100.0)
-		# 0.19927962618542916
+		>>> init_marr_coef(2.0, -0.5, 3.0, 100.0)
+		0.19927962618542916
 		"""
 		if A < 0.0:
 			raise ValueError("A = {0:18.16e}:  Negative Arrhenius prefactor is prohibited!".format(A))
@@ -199,7 +199,7 @@ class Reaction_system():
 
 	EXAMPLES:
 	========
-	# >>> TBD
+	>>> TBD
 	"""
 	def __init__(self, reactions, order, concs, T):
 		"""Returns class attributes, and sets reaction
@@ -237,7 +237,7 @@ class Reaction_system():
 
 		EXAMPLES:
 		========
-		# >>> TBD
+		>>> TBD
 		"""
 		nu_reac = np.zeros((len(order), len(reactions)))
 		nu_prod = np.zeros((len(order), len(reactions)))
@@ -260,9 +260,9 @@ class Reaction_system():
 
 		EXAMPLES:
 		=========
-		# This should be updated
-		# >>> progress_rate(np.array([[2.0, 1.0], [1.0, 0.0], [0.0, 1.0]]), np.array([2.0, 1.0, 1.0]), 10.0)
-		# array([ 40.,  20.])
+		This should be updated
+		>>> progress_rate(np.array([[2.0, 1.0], [1.0, 0.0], [0.0, 1.0]]), np.array([2.0, 1.0, 1.0]), 10.0)
+		array([ 40.,  20.])
 		"""
 
 		progress = self.ks.copy() # Initialize progress rates with reaction rate coefficients
@@ -290,13 +290,13 @@ class Reaction_system():
 
 		EXAMPLES:
 		=========
-		# >>> data = read_data('t.xml')
-		# concs = [2., 1., .5, 1., 1.]
-		# T = 1500
-		# system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
-		# system.reaction_rate()
-		# [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
-  # 		-4.47993847e+06]
+		>>> data = read_data('t.xml')
+		concs = [2., 1., .5, 1., 1.]
+		T = 1500
+		system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+		system.reaction_rate()
+		[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
+  		-4.47993847e+06]
 		"""
 		rates = self.progress_rate()
 		print(rates)
