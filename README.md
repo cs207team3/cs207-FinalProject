@@ -8,26 +8,27 @@
 ---
 
 ### User's Guide
+
+Describe what problem the code is solving. You may borrow the Latex expressions from my lecture notes. Discuss in broad
+strokes what the purpose of the code is along with any features. Do not describe the details of the code yet. **(delete before releasing)**
+
 **Introduction:**
 
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
-##### reaction equation here
 
-\begin{align}
-  \sum_{i=1}^{N}{\nu_{ij}^{\prime}\mathcal{S}_{i}} \longrightarrow 
-  \sum_{i=1}^{N}{\nu_{ij}^{\prime\prime}\mathcal{S}_{i}}, \qquad j = 1, \ldots, M
-\end{align}
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_form.png "Reaction Form")
 
 In the future we intend on implementing features to handle both reversible and non-elementary reactions.
 
 -----
 
 The progress rate for each reaction is given by:
-##### progress rate equation here
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/progress_rate.png "Progress Rate")
+
 The reaction rate of each specie i can be written as:
-##### Reaction rate equation here
-Describe what problem the code is solving. You may borrow the Latex expressions from my lecture notes. Discuss in broad
-strokes what the purpose of the code is along with any features. Do not describe the details of the code yet.
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_rate.png "Reaction Rate")
 
 ------
 
@@ -36,6 +37,8 @@ strokes what the purpose of the code is along with any features. Do not describe
 All the code related to this library can be found in this repository, specifically in the files **parser.py** and **chemkin.py**.
 
 In order to run the test suite accompanying these files, do the following:
+
+**<TODO>**
 
 ----
 
