@@ -37,7 +37,7 @@ class Reaction():
 	# >>>TBD
 	"""
 	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
-		"""Returns class attributes:
+		"""Sets class attributes:
 		self.reactants
 		self.products
 		self.reversible
@@ -55,14 +55,30 @@ class Reaction():
 		self.coef = coef
 
 	def __eq__(self, other):
+		"""Overrides equality operator:
+		Two reactions are same if the only different
+		attributes are their Ids
+		"""
 		return self.reactants == other.reactants \
 			and self.products == other.products \
 			and self.reversible == other.reversible \
 			and self.reac_type == other.reac_type \
+			and self.coef_type  == other.coef_type \
 			and self.coef == other.coef \
 
+	def __str__(self):
+		"""Returns string representation of Reaction class""" 
+		return 'Reactants: ' + str(self.reactants) + \
+			   '\nProducts: ' + str(self.products) + \
+			   '\nReversible: ' + str(self.reversible) + \
+			   '\nReaction Type: ' + self.reac_type + \
+			   '\nReaction Id: ' + self.reac_id + \
+			   '\nCoefficient Type: ' + self.coef_type + \
+			   '\nCoefficients: ' + str(self.coef) 
+
+
 	def set_reac_coefs(self, T):
-		"""Set reaction coefficients as:
+		"""Sets reaction coefficients as:
 		Constant, Arrhenius, or Modified Arrhenius
 
 		INPUTS:
@@ -226,6 +242,10 @@ class Reaction_system():
 			reac.set_reac_coefs(T)
 			self.ks.append(reac.k)
 
+	def __len__(self):
+		""" Returns the number of reactions the system has"""
+		return len(self.reactions)
+
 	def init_matrices(self, reactions, order):
 		"""Initializes reactant and product matrices for progress rate calculations
 
@@ -310,3 +330,7 @@ class Reaction_system():
 		nu = self.nu_prod - self.nu_react
 
 		return np.dot(nu, rates)
+
+
+r1 = Reaction({'O2': 1.0, 'H2': 2.0}, {'OH': 2.0, 'H2': 1.0}, False, 'Elementary', 'reaction01', 'modifiedArrhenius', {'E': 50000.0, 'b': 0.5, 'A': 100000000.0})
+print(r1)
