@@ -15,7 +15,7 @@
 
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_form.png "Reaction Form")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_form.png "Reaction Form")
 
 In the future we intend on implementing features to handle both reversible and non-elementary reactions.
 
@@ -23,13 +23,13 @@ In the future we intend on implementing features to handle both reversible and n
 
 The progress rate for each reaction is given by:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/progress_rate.png "Progress Rate")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/progress_rate.png "Progress Rate")
 
 The reaction rate of each specie i can be written as:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_rate.png "Reaction Rate")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_rate.png "Reaction Rate")
 ----
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/variables.png "Variables")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/variables.png "Variables")
 
 ------
 
