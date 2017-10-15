@@ -54,7 +54,7 @@ After checking out this repository:
   from parser import *
   from chemkin import *
   ```
-  
+
 2. User can obtain reaction data by parsing an existing xml file using `read_data()` function or manually create reactions using the constructor in `Reaction()` class.
 
 3. To calculate the reaction rate of a system, a user also needs to specify the current concentration of each species and the temperature under which the reaction rate is calculated.
@@ -78,4 +78,4 @@ reaction_rates = system.reaction_rate()
 
 Provide a few examples on using your software in some common situations. You may want to show how the code works with a small set of reactions.
 
-Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the '<phase>' tag
+Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the '"<phase>"' tag in the .xml file.
