@@ -54,6 +54,13 @@ class Reaction():
 		self.coef_type = coef_type
 		self.coef = coef
 
+	def __eq__(self, other):
+		return self.reactants == other.reactants \
+			and self.products == other.products \
+			and self.reversible == other.reversible \
+			and self.reac_type == other.reac_type \
+			and self.coef == other.coef \
+
 	def set_reac_coefs(self, T):
 		"""Set reaction coefficients as:
 		Constant, Arrhenius, or Modified Arrhenius
