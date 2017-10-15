@@ -9,8 +9,10 @@
 
 ### User's Guide
 
-**Introduction:**
 ...Please see the chart below for equation symbols and their meaning...
+
+**Introduction:**
+
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_form.png "Reaction Form")
