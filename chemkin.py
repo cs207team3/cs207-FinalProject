@@ -230,10 +230,11 @@ class Reaction_system():
 
 		ATTRIBUTES:
 		============
-		self.reactions
-		self.order
-		self.concs
-		self.T
+		self
+		ks
+		order
+		concs
+		T
 		"""
 		if any(c < 0 for c in concs):
 			raise ValueError('Concentration should not be Negative!')
@@ -247,7 +248,7 @@ class Reaction_system():
 
 	def __len__(self):
 		""" Returns the number of reactions the system has"""
-		return len(self.reactions)
+		return len(self.ks)
 
 	def init_matrices(self, reactions, order):
 		"""Initializes reactant and product matrices for progress rate calculations
@@ -333,7 +334,3 @@ class Reaction_system():
 		nu = self.nu_prod - self.nu_react
 
 		return np.dot(nu, rates)
-
-
-r1 = Reaction({'O2': 1.0, 'H2': 2.0}, {'OH': 2.0, 'H2': 1.0}, False, 'Elementary', 'reaction01', 'modifiedArrhenius', {'E': 50000.0, 'b': 0.5, 'A': 100000000.0})
-print(r1)
