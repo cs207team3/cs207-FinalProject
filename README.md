@@ -76,8 +76,4 @@ After checking out this repository:
 [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
 ```
 
-** TODO?: provide a more specific example (maybe we can use the example from L11 exercise) **
-
-Provide a few examples on using your software in some common situations. You may want to show how the code works with a small set of reactions.
-
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.
