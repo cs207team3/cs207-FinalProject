@@ -60,6 +60,7 @@ After checking out this repository:
 
 3. To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
 
+----
 ### Code Example:
 ```
 from chemkin import *
