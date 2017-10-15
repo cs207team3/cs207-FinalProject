@@ -9,9 +9,6 @@
 
 ### User's Guide
 
-Describe what problem the code is solving. You may borrow the Latex expressions from my lecture notes. Discuss in broad
-strokes what the purpose of the code is along with any features. Do not describe the details of the code yet. **(delete before releasing)**
-
 **Introduction:**
 
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
@@ -29,6 +26,7 @@ The progress rate for each reaction is given by:
 The reaction rate of each specie i can be written as:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_rate.png "Reaction Rate")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/variables.png "Variables")
 
 ------
 
