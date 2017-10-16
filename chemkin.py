@@ -15,19 +15,23 @@ class Reaction():
 
 	ATRIBUTES:
 	=========
-	reactants: list of reaction reactant species
-	products: list of reaction product species
+	reactants: dict of reaction reactant species
+	products: dict of reaction product species
 	reversible: boolean
 	reac_type: reaction type (elementary, duplicate(not yet supported),
 				three-body(not yet supported)
 	reac_id: ID of reaction
 	coef_type: Reaction rate coefficient (constant, Arrhenius, Modified Arrhenius)
-	coef: list of reaction rate variables (A, E, b, T)
+	coef: dict of reaction rate variables {A, E, b, T}
 
 	METHODS:
 	=======
 	.__init__: init attributes
-	.set_reac_coefs: sets reaction coefficients (k, A, E, b, T)
+	.__eq__: Two reactions are same if the only different
+	attributes are their Ids
+	.__ste__: Returns string representation of Reaction class
+	.set_reac_coefs: sets reaction coefficients as Contant, Arrhenius or
+	Modified Arrhenius
 	.init_const_coef: returns k for constant reaction rate
 	.init_arr_coef: returns Arrhenius reaction rate
 	.init_marr_coef: returns Modified Arrhenius reaction rate
@@ -37,12 +41,12 @@ class Reaction():
 	>>> reactants = {'O2': 1.0, 'H2': 2.0}
 	>>> products = {'OH': 2.0, 'H2': 1.0}
 	>>> coefs = {'E': 50000.0, 'b': 0.5, 'A': 100000000.0}
-	>>> r1 = Reaction(reactants, products, 
-	...  		  False, 'Elementary', 'reaction01', 
+	>>> r1 = Reaction(reactants, products,
+	...  		  False, 'Elementary', 'reaction01',
 	...  		  'modifiedArrhenius', coefs)
 	>>> type(r1)
 	<class 'chemkin.Reaction'>
-	>>> r1.set_reac_coefs(100) 
+	>>> r1.set_reac_coefs(100)
 	>>> r1.init_const_coef(5)
 	5
 	>>> r1.init_arr_coef(2, 3, 100) # Calculates the Arrhenius reaction rate coefficient
@@ -51,7 +55,7 @@ class Reaction():
 	"""
 	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
 		"""Sets class attributes and returns reference of the class object
-		
+
 		INPUTS
 		======
 		reactants: 	dict
@@ -92,14 +96,14 @@ class Reaction():
 			and self.coef == other.coef \
 
 	def __str__(self):
-		"""Returns string representation of Reaction class""" 
+		"""Returns string representation of Reaction class"""
 		return 'Reactants: ' + str(self.reactants) + \
 			   '\nProducts: ' + str(self.products) + \
 			   '\nReversible: ' + str(self.reversible) + \
 			   '\nReaction Type: ' + self.reac_type + \
 			   '\nReaction Id: ' + self.reac_id + \
 			   '\nCoefficient Type: ' + self.coef_type + \
-			   '\nCoefficients: ' + str(self.coef) 
+			   '\nCoefficients: ' + str(self.coef)
 
 
 	def set_reac_coefs(self, T):
@@ -206,7 +210,6 @@ class Reaction():
 
 		return A * (T**b) * np.exp(-E / R / T)
 
-
 from parser import read_data
 
 class ReactionSystem():
@@ -227,6 +230,7 @@ class ReactionSystem():
 	METHODS:
 	=======
 	.__init__: init attributes
+	.__len__: returns the number of reactions in the system
 	.init_matrices: returns reactant and product matrices
 	.progress_rate: returns progress rate of system of reactions
 	.reaction_rate: returns reaction rate of system of reactions
@@ -241,7 +245,6 @@ class ReactionSystem():
 	>>> print(system.reaction_rate())
 	[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
 	  -4.47993847e+06]
-
 	"""
 	def __init__(self, reactions=[], order=[], concs=[], T=0, filename=''):
 		"""Sets class attributes and returns reference of the class object
@@ -265,13 +268,12 @@ class ReactionSystem():
 
 		Assumption
 		======
-		Current version assumes only one reaction system is read from the 
-		.xml file, but we might extend this feature to multiple reaction 
+		Current version assumes only one reaction system is read from the
+		.xml file, but we might extend this feature to multiple reaction
 		systems in the future based on our clients' requirements
 
 		"""
-
-		if filename:	
+		if filename:
 			data = read_data(filename)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
@@ -287,7 +289,7 @@ class ReactionSystem():
 			self.ks.append(reac.k)
 
 	def __len__(self):
-		""" Returns the number of reactions the system has"""
+		"""Returns the number of reactions in the system"""
 		return len(self.ks)
 
 	def init_matrices(self, reactions, order):
@@ -306,7 +308,6 @@ class ReactionSystem():
 		 			Stoichiometric coefficients for reactants
 		nu_prod: 	array of floats
 					Stoichiometric coefficients for products
-
 		"""
 		nu_reac = np.zeros((len(order), len(reactions)))
 		nu_prod = np.zeros((len(order), len(reactions)))
@@ -326,7 +327,6 @@ class ReactionSystem():
 		omega: numpy array of floats
 			   size: number of reactions
 			   progress rate of each reaction
-
 		"""
 
 		progress = self.ks.copy() # Initialize progress rates with reaction rate coefficients
@@ -351,7 +351,6 @@ class ReactionSystem():
 		f: numpy array of floats
 		   size: number of species
 		   reaction rate of each species
-
 		"""
 		rates = self.progress_rate()
 		nu = self.nu_prod - self.nu_react
