@@ -36,7 +36,8 @@ def read_data(filename):
 
     INPUTS:
     =======
-    .xml file
+    filename:   str
+                File name of .xml file to parse
 
     RETURNS:
     =======
@@ -44,10 +45,9 @@ def read_data(filename):
 
     EXAMPLES:
     ========
-    # >>>read_data('t.xml')
-    # {'H2': 2.0, 'O2': 1.0} {'OH': 2.0, 'H2': 1.0} False Elementary reaction01 modifiedArrhenius {'A': 100000000.0, 'b': 0.5, 'E': 50000.0}
-    # {'OH': 1.0, 'HO2': 1.0} {'H2O': 1.0, 'O2': 1.0} False Elementary reaction02 Constant {'k': 10000.0}
-    # {'H2O': 1.0, 'O2': 1.0} {'HO2': 1.0, 'OH': 1.0} False Elementary reaction03 Arrhenius {'A': 10000000.0, 'E': 10000.0}
+    >>> data = read_data('t.xml')
+    >>> data['species']
+    ['H2', 'O2', 'OH', 'HO2', 'H2O']
     """
     tree = ET.parse(filename)
     rxns = tree.getroot()
@@ -59,7 +59,7 @@ def read_data(filename):
         phase = rxns.find('phase')
         data['species'] = phase.find('speciesArray').text.split()
 
-        # Reaction(reactants, products, reversible, reac_type, reac_id, coef_type):
+        # get reaction info
         data['reactions'] = {}
         for reaction_data in rxns.findall('reactionData'):
             reaction_id = reaction_data.get('id')
@@ -78,9 +78,6 @@ def read_data(filename):
                     for param in params_block:
                         key = param.tag
                         coef[key] = float(params_block.find(key).text)
-                print(reactants, products,
-                                         reversible, reac_type,
-                                         reac_id, coef_type, coef)
                 reactions.append(Reaction(reactants, products,
                                          reversible, reac_type,
                                          reac_id, coef_type, coef))
@@ -90,16 +87,3 @@ def read_data(filename):
         print('Warning: please check your xml format, ' + 
               'returns empty data because format doesn\'t match')
     return data
-
-
-"""
-# Example code below
-
-data = read_data('t.xml')
-print(data)
-print(data['reactions']['test_mechanism'][0])
-concs = [2., 1., .5, 1., 1.]
-T = 1500
-system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
-print(system.reaction_rate())
-"""

@@ -32,19 +32,44 @@ class Reaction():
 	.init_arr_coef: returns Arrhenius reaction rate
 	.init_marr_coef: returns Modified Arrhenius reaction rate
 
-	# EXAMPLES:
-	# ========
-	# >>>TBD
+	EXAMPLES:
+	========
+	>>> reactants = {'O2': 1.0, 'H2': 2.0}
+	>>> products = {'OH': 2.0, 'H2': 1.0}
+	>>> coefs = {'E': 50000.0, 'b': 0.5, 'A': 100000000.0}
+	>>> r1 = Reaction(reactants, products, 
+	...  		  False, 'Elementary', 'reaction01', 
+	...  		  'modifiedArrhenius', coefs)
+	>>> type(r1)
+	<class 'chemkin.Reaction'>
+	>>> r1.set_reac_coefs(100) 
+	>>> r1.init_const_coef(5)
+	5
+	>>> r1.init_arr_coef(2, 3, 100) # Calculates the Arrhenius reaction rate coefficient
+	1.9927962618542914
+
 	"""
 	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
-		"""Sets class attributes:
-		self.reactants
-		self.products
-		self.reversible
-		self.reac_type
-		self.reac_id
-		self.coef_type
-		self.coef
+		"""Sets class attributes and returns reference of the class object
+		
+		INPUTS
+		======
+		reactants: 	dict
+					Reactant species (str) and their coefficients (floats)
+		products: 	dict
+					Product species (str) and their coefficients (floats)
+		reversible:	boolean
+					Whether the reaction is reversible
+		reac_type:	str
+					Reaction type
+		reac_id:	str
+					Reaction id (normally read from .xml file)
+		coef_type:  str
+					Type of coefficients
+					Must be either Constant, Arrhenius, or modifiedArrhenius
+		coef:		dict
+					Contains values of A, b, E
+
 		"""
 		self.reactants = reactants
 		self.products = products
@@ -106,11 +131,6 @@ class Reaction():
 		========
 		k: float
 		   Constant reaction rate coefficient
-
-		# EXAMPLES:
-		# =========
-		# >>> init_const_coef(5.0)
-		# 5.0
 		"""
 		if k < 0:
 			raise ValueError("Negative reaction rate coefficients are prohibited.")
@@ -138,11 +158,6 @@ class Reaction():
 		========
 		k: float
 		   Arrhenius reaction rate coefficient
-
-		# EXAMPLES:
-		# =========
-		# >>> init_arr_coef(2.0, 3.0, 100.0)
-		# 1.9927962618542914
 		"""
 
 		if A < 0.0:
@@ -179,11 +194,6 @@ class Reaction():
 		========
 		k: float
 		   Modified Arrhenius reaction rate coefficient
-
-		# EXAMPLES:
-		# =========
-		# >>> init_marr_coef(2.0, -0.5, 3.0, 100.0)
-		# 0.19927962618542916
 		"""
 		if A < 0.0:
 			raise ValueError("A = {0:18.16e}:  Negative Arrhenius prefactor is prohibited!".format(A))
@@ -198,8 +208,8 @@ class Reaction():
 
 
 
-class Reaction_system():
-	"""Reaction_system Class for chemical kinetics calculations
+class ReactionSystem():
+	"""ReactionSystem Class for chemical kinetics calculations
 
 	ATRIBUTES:
 	=========
@@ -220,22 +230,52 @@ class Reaction_system():
 	.progress_rate: returns progress rate of system of reactions
 	.reaction_rate: returns reaction rate of system of reactions
 
-	# EXAMPLES:
-	# ========
-	# >>> TBD
-	"""
-	def __init__(self, reactions, order, concs, T):
-		"""Returns class attributes, and sets reaction
-		temperatures and reaction rate coefficients
+	EXAMPLES:
+	========
+	>>> import parser
+	>>> data = parser.read_data('t.xml')
+	>>> concs = [2., 1., .5, 1., 1.]
+	>>> T = 1500
+	>>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
+	>>> print(system.reaction_rate())
+	[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
+	  -4.47993847e+06]
 
-		ATTRIBUTES:
-		============
-		self
-		ks
-		order
-		concs
-		T
+	"""
+	def __init__(self, reactions=[], order=[], concs=[], T=0, filename=''):
+		"""Sets class attributes and returns reference of the class object
+
+		INPUTS
+		======
+		reactions: 	list of Reaction()
+					All reactions in the system
+		order:		list of floats
+					Species of reactants and products in the system
+		concs:		list of floats
+					Concentrations of each corresponding species
+		T:			float
+					Temperature
+					Must be positive
+		filename:	str
+					Name of .xml data file
+					Optional field
+					If filename is specified, we will use the data
+					read from the given file instead of reactions and order
+
+		Assumption
+		======
+		Current version assumes only one reaction system is read from the 
+		.xml file, but we might extend this feature to multiple reaction 
+		systems in the future based on our clients' requirements
+
 		"""
+
+		if filename:
+			from parser import read_data
+			data = read_data(filename)
+			reactions = next(iter(data['reactions'].values()))
+			order = data['species']
+
 		if any(c < 0 for c in concs):
 			raise ValueError('Concentration should not be Negative!')
 
@@ -255,9 +295,10 @@ class Reaction_system():
 
 		INPUTS
 		======
-		reactions: 	list of floats
-					System reactant species
+		reactions: 	list of Reaction()
+					All reactions in the system
 		order:		list of floats
+					Species of reactants and products in the system
 
 		RETURNS:
 		=======
@@ -266,9 +307,6 @@ class Reaction_system():
 		nu_prod: 	array of floats
 					Stoichiometric coefficients for products
 
-		# EXAMPLES:
-		# ========
-		# >>> TBD
 		"""
 		nu_reac = np.zeros((len(order), len(reactions)))
 		nu_prod = np.zeros((len(order), len(reactions)))
@@ -289,11 +327,6 @@ class Reaction_system():
 			   size: number of reactions
 			   progress rate of each reaction
 
-		# EXAMPLES:
-		# =========
-		# This should be updated
-		# >>> progress_rate(np.array([[2.0, 1.0], [1.0, 0.0], [0.0, 1.0]]), np.array([2.0, 1.0, 1.0]), 10.0)
-		# array([ 40.,  20.])
 		"""
 
 		progress = self.ks.copy() # Initialize progress rates with reaction rate coefficients
@@ -319,18 +352,8 @@ class Reaction_system():
 		   size: number of species
 		   reaction rate of each species
 
-		# EXAMPLES:
-		# =========
-		# >>> data = read_data('t.xml')
-		# concs = [2., 1., .5, 1., 1.]
-		# T = 1500
-		# system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
-		# system.reaction_rate()
-		# [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
-  # 		-4.47993847e+06]
 		"""
 		rates = self.progress_rate()
-		print(rates)
 		nu = self.nu_prod - self.nu_react
 
 		return np.dot(nu, rates)

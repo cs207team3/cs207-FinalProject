@@ -52,7 +52,7 @@ The data of the relative reactions can be stored in an .xml file.
 
 The user needs to have **\<phase\>** tab to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
   
-The second tab of the .xml file needs to stores reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file. 
+The second tab of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file. 
   
 For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml).
 
@@ -79,7 +79,7 @@ After checking out this repository:
 >>> concs = [2., 1., .5, 1., 1.]
 >>> T = 1500
 >>> # create a system of the reactions
->>> system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+>>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate()
 [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]

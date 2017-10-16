@@ -8,7 +8,7 @@ def test_reaction_system():
     data = {'reactions': {'test_mechanism': [r1]}, 'species': ['H2', 'O2', 'OH', 'HO2', 'H2O']}
     concs = [2., 1., .5, 1., 1.]
     T = 1500
-    system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+    system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
     reaction_rates = system.reaction_rate()
     expected_answer = np.array([-2.81117621e+08, -2.81117621e+08,   
                                 5.62235242e+08,  0.00000000e+00, 0.00000000e+00])
@@ -82,7 +82,7 @@ r2 = Reaction({'OH': 1.0, 'HO2': 1.0}, {'H2O': 1.0, 'O2': 1.0}, False, 'Elementa
 data = {'reactions': {'test_mechanism': [r1, r2]}, 'species': ['H2', 'O2', 'OH', 'HO2', 'H2O']}
 concs = [2., 1., .5, 1., 1.]
 T = 1500
-system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
 
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ def test_reaction_system_init_1():
 def test_reaction_system_init_2():
     concs = concs = [2., 1., .5, 1., -1.]
     try:
-        system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+        system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
     except ValueError as err:
         assert (type(err) == ValueError)
 
@@ -114,7 +114,15 @@ def test_full_process():
     data = read_data('t.xml')
     concs = [2., 1., .5, 1., 1.]
     T = 1500
-    system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+    system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
+    assert(len(system) == 3)
+    expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
+    assert (np.all(np.isclose(system.reaction_rate(), expected)))
+
+def test_system_read_from_file_name():
+    concs = [2., 1., .5, 1., 1.]
+    T = 1500
+    system = ReactionSystem(concs=concs, T=T, filename='t.xml')
     assert(len(system) == 3)
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     assert (np.all(np.isclose(system.reaction_rate(), expected)))
