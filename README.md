@@ -64,12 +64,23 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 After checking out this repository:
 1. Import relative classes and functions from parser.py and chemkin.py.
 
-2. You can obtain reaction data by parsing a properly formatted .xml file using `read_data()` function or by manually creating reactions using the constructor in the `Reaction()` class.
+2. User can create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using `read_data()` function by user (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
-3. To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
+#### Code Examples:
+3.1 To create a reaction system directly from .xml file, use the following code.
+```
+>>> from chemkin import *
+>>> from parser import *
+>>> concs = [2., 1., .5, 1., 1.]
+>>> T = 1500
+>>> system = ReactionSystem(concs=concs, T=T, filename='t.xml')
+>>> # calculate reaction rates
+>>> reaction_rates = system.reaction_rate()
+[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
+```
 
-----
-### Code Example:
+3.2 To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
+
 ```
 >>> from chemkin import *
 >>> from parser import *
