@@ -127,5 +127,3 @@ def test_system_read_from_file_name():
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     assert (np.all(np.isclose(system.reaction_rate(), expected)))
 
-
-# test_full_process()

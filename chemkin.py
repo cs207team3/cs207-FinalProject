@@ -207,6 +207,7 @@ class Reaction():
 		return A * (T**b) * np.exp(-E / R / T)
 
 
+from parser import read_data
 
 class ReactionSystem():
 	"""ReactionSystem Class for chemical kinetics calculations
@@ -270,8 +271,7 @@ class ReactionSystem():
 
 		"""
 
-		if filename:
-			from parser import read_data
+		if filename:	
 			data = read_data(filename)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
