@@ -15,7 +15,7 @@
 
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_form.png "Reaction Form")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_form.png "Reaction Form")
 
 In the future we intend on implementing features to handle both reversible and non-elementary reactions.
 
@@ -23,13 +23,13 @@ In the future we intend on implementing features to handle both reversible and n
 
 The progress rate for each reaction is given by:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/progress_rate.png "Progress Rate")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/progress_rate.png "Progress Rate")
 
 The reaction rate of each specie i can be written as:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/reaction_rate.png "Reaction Rate")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_rate.png "Reaction Rate")
 ----
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/equations/variables.png "Variables")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/variables.png "Variables")
 
 ------
 
@@ -63,21 +63,18 @@ After checking out this repository:
 ----
 ### Code Example:
 ```
-from chemkin import *
-from parser import *
-# parse data from xml file
-data = read_data('t.xml')
-# specify concentration list and current temperature
-concs = [2., 1., .5, 1., 1.]
-T = 1500
-# create a system of the reactions
-system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
-# calculate reaction rates
-reaction_rates = system.reaction_rate()
+>>> from chemkin import *
+>>> from parser import *
+>>> # parse data from xml file
+>>> data = read_data('t.xml')
+>>> # specify concentration list and current temperature
+>>> concs = [2., 1., .5, 1., 1.]
+>>> T = 1500
+>>> # create a system of the reactions
+>>> system = Reaction_system(data['reactions']['test_mechanism'], data['species'], concs, T)
+>>> # calculate reaction rates
+>>> reaction_rates = system.reaction_rate()
+[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
 ```
-
-** TODO?: provide a more specific example (maybe we can use the example from L11 exercise) **
-
-Provide a few examples on using your software in some common situations. You may want to show how the code works with a small set of reactions.
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.

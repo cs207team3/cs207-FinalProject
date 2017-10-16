@@ -37,7 +37,7 @@ class Reaction():
 	# >>>TBD
 	"""
 	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
-		"""Returns class attributes:
+		"""Sets class attributes:
 		self.reactants
 		self.products
 		self.reversible
@@ -55,14 +55,30 @@ class Reaction():
 		self.coef = coef
 
 	def __eq__(self, other):
+		"""Overrides equality operator:
+		Two reactions are same if the only different
+		attributes are their Ids
+		"""
 		return self.reactants == other.reactants \
 			and self.products == other.products \
 			and self.reversible == other.reversible \
 			and self.reac_type == other.reac_type \
+			and self.coef_type  == other.coef_type \
 			and self.coef == other.coef \
 
+	def __str__(self):
+		"""Returns string representation of Reaction class""" 
+		return 'Reactants: ' + str(self.reactants) + \
+			   '\nProducts: ' + str(self.products) + \
+			   '\nReversible: ' + str(self.reversible) + \
+			   '\nReaction Type: ' + self.reac_type + \
+			   '\nReaction Id: ' + self.reac_id + \
+			   '\nCoefficient Type: ' + self.coef_type + \
+			   '\nCoefficients: ' + str(self.coef) 
+
+
 	def set_reac_coefs(self, T):
-		"""Set reaction coefficients as:
+		"""Sets reaction coefficients as:
 		Constant, Arrhenius, or Modified Arrhenius
 
 		INPUTS:
@@ -214,17 +230,25 @@ class Reaction_system():
 
 		ATTRIBUTES:
 		============
-		self.reactions
-		self.order
-		self.concs
-		self.T
+		self
+		ks
+		order
+		concs
+		T
 		"""
+		if any(c < 0 for c in concs):
+			raise ValueError('Concentration should not be Negative!')
+
 		self.concs = concs
 		self.nu_react, self.nu_prod = self.init_matrices(reactions, order)
 		self.ks = []
 		for reac in reactions:
 			reac.set_reac_coefs(T)
 			self.ks.append(reac.k)
+
+	def __len__(self):
+		""" Returns the number of reactions the system has"""
+		return len(self.ks)
 
 	def init_matrices(self, reactions, order):
 		"""Initializes reactant and product matrices for progress rate calculations
