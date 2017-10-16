@@ -33,7 +33,7 @@ The reaction rate of each specie i can be written as:
 
 ------
 
-**Installation:**
+### Installation:
 
 All the code related to this library can be found in this repository, specifically in the files **parser.py** and **chemkin.py**.
 
@@ -47,16 +47,24 @@ We are not releasing this code as a package yet, but when we do that this sectio
 
 ----
 
+### Input Format
+The data of the relative reactions can be stored in an .xml file. 
+
+The user needs to have **\<phase\>** tab to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
+  
+The second tab of the .xml file needs to stores reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file. 
+  
+For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml)
+
+If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data to the user.
+
+----
+
 ### Basic Usage:
 After checking out this repository:
 1. Import relative classes and functions from parser.py and chemkin.py.
 
-  ```
-  from parser import *
-  from chemkin import *
-  ```
-
-2. You can obtain reaction data by parsing an properly formatted .xml file using `read_data()` function or by manually creating reactions using the constructor in the `Reaction()` class.
+2. You can obtain reaction data by parsing a properly formatted .xml file using `read_data()` function or by manually creating reactions using the constructor in the `Reaction()` class.
 
 3. To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
 
