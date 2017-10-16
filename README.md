@@ -17,7 +17,7 @@ The purpose of our library is to return the reaction rate of a system of N speci
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_form.png "Reaction Form")
 
-In the future we intend on implementing features to handle both reversible and non-elementary reactions.
+In the future we intend to implement features handling both reversible and non-elementary reactions.
 
 -----
 
@@ -48,12 +48,14 @@ We are not releasing this code as a package yet, but when we do that this sectio
 ----
 
 ### Input Format
-The data of the relative reactions can be stored in an .xml file. 
+The data of the relative reactions can be stored in an .xml file.
 
-The user needs to have **\<phase\>** tab to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
-  
-The second tab of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file. 
-  
+The user needs to have **\<phase\>** tag to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
+
+The second tab of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file.
+
+The user also needs to specify reaction temperature.
+
 For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml).
 
 If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data to the user.
@@ -62,17 +64,17 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 
 ### Basic Usage:
 After checking out this repository:
-1. Import relative classes and functions from parser.py and chemkin.py.
+1. Import relative classes and functions from **parser.py** and **chemkin.py**.
 
-2. User can create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using `read_data()` function by user (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
+2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
 #### Code Examples:
 3.1 To create a reaction system directly from .xml file, use the following code.
 ```
 >>> from chemkin import *
 >>> from parser import *
->>> concs = [2., 1., .5, 1., 1.]
->>> T = 1500
+>>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
+>>> T = 1500 #temperature
 >>> system = ReactionSystem(concs=concs, T=T, filename='t.xml')
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate()
