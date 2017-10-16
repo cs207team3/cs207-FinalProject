@@ -54,7 +54,7 @@ The user needs to have **\<phase\>** tab to specify a list of species involved i
   
 The second tab of the .xml file needs to stores reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file. 
   
-For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml)
+For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml).
 
 If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data to the user.
 
