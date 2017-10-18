@@ -41,7 +41,8 @@ def read_data(filename):
 
     RETURNS:
     =======
-    data: reaction information for each reaction in the file
+    data: dictonary of reactions and species for each reaction in the file
+    (keys = ['reactions', 'species'])
 
     EXAMPLES:
     ========
@@ -84,6 +85,6 @@ def read_data(filename):
                 data['reactions'][reaction_id] = reactions
     except AttributeError as ex:
         print(ex)
-        print('Warning: please check your xml format, ' + 
+        print('Warning: please check your xml format, ' +
               'returns empty data because format doesn\'t match')
     return data
