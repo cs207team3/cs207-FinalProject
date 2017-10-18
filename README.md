@@ -52,7 +52,7 @@ The data of the relative reactions can be stored in an .xml file.
 
 The user needs to have **\<phase\>** tag to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
 
-The second tab of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tabs when parsing the .xml file.
+The second tag of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tags when parsing the .xml file.
 
 The user also needs to specify reaction temperature.
 
