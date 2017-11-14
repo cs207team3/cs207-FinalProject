@@ -1,6 +1,6 @@
-import chem3
 from chem3.chemkin.chemkin import *
 from chem3.parser.parser import *
+import chem3
 import os
 
 def test_reaction_system():
