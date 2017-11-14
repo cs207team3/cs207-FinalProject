@@ -1,5 +1,7 @@
-from chemkin import *
-from parser import *
+import chem3
+from chem3.chemkin.chemkin import *
+from chem3.parser.parser import *
+import os
 
 def test_reaction_system():
     # data = read_data('t.xml')
@@ -111,7 +113,10 @@ def test_reaction_rate():
     assert (np.all(np.isclose(system.reaction_rate(), expected)))
 
 def test_full_process():
-    data = read_data('t.xml')
+    test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+    test_file = os.path.join(test_data_dir, 't.xml')
+
+    data = read_data(test_file)
     concs = [2., 1., .5, 1., 1.]
     T = 1500
     system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
@@ -122,7 +127,11 @@ def test_full_process():
 def test_system_read_from_file_name():
     concs = [2., 1., .5, 1., 1.]
     T = 1500
-    system = ReactionSystem(concs=concs, T=T, filename='t.xml')
+    
+    test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+    test_file = os.path.join(test_data_dir, 't.xml')
+
+    system = ReactionSystem(concs=concs, T=T, filename=test_file)
     assert(len(system) == 3)
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     assert (np.all(np.isclose(system.reaction_rate(), expected)))

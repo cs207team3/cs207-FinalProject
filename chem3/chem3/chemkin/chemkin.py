@@ -210,7 +210,7 @@ class Reaction():
 
 		return A * (T**b) * np.exp(-E / R / T)
 
-from parser import read_data
+from chem3.parser.parser import read_data
 
 class ReactionSystem():
 	"""ReactionSystem Class for chemical kinetics calculations
