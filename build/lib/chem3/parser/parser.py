@@ -141,6 +141,7 @@ def read_data(filename, db_name):
         print(ex)
         print('Warning: please check your xml format, ' +
               'returns empty data because format doesn\'t match')
+        return {}
     return data
 
 

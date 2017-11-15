@@ -221,6 +221,9 @@ tests/nasa.sqlite
 tests/t.xml
 tests/test_chemkin.py
 tests/travis_install.sh
+tests/test_data/L19DB_demo.sqlite
 tests/test_data/nasa.sqlite
+tests/test_data/nasa.sqlite;
 tests/test_data/rxns.xml
 tests/test_data/t.xml
+tests/test_data/test.py
