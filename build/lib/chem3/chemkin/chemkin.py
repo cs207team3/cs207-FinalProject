@@ -210,6 +210,8 @@ class Reaction():
 
 		return A * (T**b) * np.exp(-E / R / T)
 
+import chem3
+import os
 from chem3.parser.parser import read_data
 
 class ReactionSystem():
@@ -247,7 +249,7 @@ class ReactionSystem():
 	  -4.47993847e+06]
 	"""
 	def __init__(self, reactions=[], order=[], nasa7_coeffs_low=[], nasa7_coeffs_high=[],\
-							 filename='', db_name=''):
+							 filename=''):
 		"""Sets class attributes and returns reference of the class object
 
 		INPUTS
@@ -272,6 +274,9 @@ class ReactionSystem():
 		systems in the future based on our clients' requirements
 
 		"""
+		test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+		db_name = os.path.join(test_data_dir, 'nasa.sqlite')
+
 		if filename:
 			data = read_data(filename, db_name)
 			reactions = next(iter(data['reactions'].values()))
@@ -279,25 +284,23 @@ class ReactionSystem():
 			nasa7_coeffs_low = data['low']
 			nasa7_coeffs_low = data['high']
 
-		self.nu_react, self.nu_prod = self.init_matrices(reactions, order)
+		self.order = order
+		self.reactions = reactions
+		self.nu_react, self.nu_prod = self.init_matrices(reactions)
 		self.ks = []
-		
-		self.reversible = []
-		for reac in reactions:
-			self.reversible.append(reac.reversible)
 
 		# Coefficients for reversible reaction
+		self.tmid = 1000
 		self.p0 = 1.0e+05
 		self.R = 8.3144598
 		self.nasa7_coeffs_low = nasa7_coeffs_low
 		self.nasa7_coeffs_high = nasa7_coeffs_high
-		self.gamma = np.sum(self.nu_prod - self.nu_react, axis=0)
 
 	def __len__(self):
 		"""Returns the number of reactions in the system"""
 		return len(self.ks)
 
-	def init_matrices(self, reactions, order):
+	def init_matrices(self, reactions):
 		"""Initializes reactant and product matrices for progress rate calculations
 
 		INPUTS
@@ -314,14 +317,14 @@ class ReactionSystem():
 		nu_prod: 	array of floats
 					Stoichiometric coefficients for products
 		"""
-		nu_reac = np.zeros((len(order), len(reactions)))
-		nu_prod = np.zeros((len(order), len(reactions)))
-		for i in range(len(order)):
+		nu_reac = np.zeros((len(self.order), len(reactions)))
+		nu_prod = np.zeros((len(self.order), len(reactions)))
+		for i in range(len(self.order)):
 			for j in range(len(reactions)):
-				if order[i] in reactions[j].reactants:
-					nu_reac[i, j] = reactions[j].reactants[order[i]]
-				if order[i] in reactions[j].products:
-					nu_prod[i, j] = reactions[j].products[order[i]]
+				if self.order[i] in reactions[j].reactants:
+					nu_reac[i, j] = reactions[j].reactants[self.order[i]]
+				if self.order[i] in reactions[j].products:
+					nu_prod[i, j] = reactions[j].products[self.order[i]]
 		return nu_reac, nu_prod
 
 	def progress_rate(self, T):
@@ -336,7 +339,7 @@ class ReactionSystem():
 
 		# Calcualte forward reaction rate coefficient 
 		self.ks = []
-		for reac in reactions:
+		for reac in self.reactions:
 			reac.set_reac_coefs(T)
 			self.ks.append(reac.k)
 
@@ -357,8 +360,12 @@ class ReactionSystem():
 			
 			# calculate backward progress rate here 
 			back_prog = 0
-			if self.reversible[jdx]:
-				back_prog = self.backward_coeffs(prog, T)
+			if self.reactions[jdx].reversible:
+				# cols = []
+				# for i in range(len(self.order)):
+				# 	if self.order[i] in self.reactions[jdx].reactants:
+				# 		cols.append(i)
+				back_prog = self.backward_coeffs(self.nu_prod[:, jdx] - self.nu_react[:, jdx], prog, T)
 
 			backward_sub = back_prog
 			for idx, xi in enumerate(self.concs):
@@ -397,9 +404,9 @@ class ReactionSystem():
 		# temperature range.  That is, for T <= Tmid get the low temperature 
 		# range coeffs and for T > Tmid get the high temperature range coeffs.
 		if T <= self.tmid:
-			a = self.nasa7_coeffs_low
+			a = np.array(self.nasa7_coeffs_low)
 		else:
-			a = self.nasa7_coeffs_high
+			a = np.array(self.nasa7_coeffs_high)
 
 		Cp_R = (a[:,0] + a[:,1] * T + a[:,2] * T**2.0 
 				+ a[:,3] * T**3.0 + a[:,4] * T**4.0)
@@ -413,9 +420,9 @@ class ReactionSystem():
 		# temperature range.  That is, for T <= Tmid get the low temperature 
 		# range coeffs and for T > Tmid get the high temperature range coeffs.
 		if T <= self.tmid:
-			a = self.nasa7_coeffs_low
+			a = np.array(self.nasa7_coeffs_low)
 		else:
-			a = self.nasa7_coeffs_high
+			a = np.array(self.nasa7_coeffs_high)
 
 		H_RT = (a[:,0] + a[:,1] * T / 2.0 + a[:,2] * T**2.0 / 3.0 
 				+ a[:,3] * T**3.0 / 4.0 + a[:,4] * T**4.0 / 5.0 
@@ -431,20 +438,20 @@ class ReactionSystem():
 		# temperature range.  That is, for T <= Tmid get the low temperature 
 		# range coeffs and for T > Tmid get the high temperature range coeffs.
 		if T <= self.tmid:
-			a = self.nasa7_coeffs_low
+			a = np.array(self.nasa7_coeffs_low)
 		else:
-			a = self.nasa7_coeffs_high
+			a = np.array(self.nasa7_coeffs_high)
 
 		S_R = (a[:,0] * np.log(T) + a[:,1] * T + a[:,2] * T**2.0 / 2.0 
 			   + a[:,3] * T**3.0 / 3.0 + a[:,4] * T**4.0 / 4.0 + a[:,6])
 
 		return S_R
 
-	def backward_coeffs(self, kf, T):
+	def backward_coeffs(self, nuij, kf, T):
 
 		# Change in enthalpy and entropy for each reaction
-		delta_H_over_RT = np.dot(self.nuij.T, self.H_over_RT(T))
-		delta_S_over_R = np.dot(self.nuij.T, self.S_over_R(T))
+		delta_H_over_RT = np.dot(nuij.T, self.H_over_RT(T))
+		delta_S_over_R = np.dot(nuij.T, self.S_over_R(T))
 
 		# Negative of change in Gibbs free energy for each reaction 
 		delta_G_over_RT = delta_S_over_R - delta_H_over_RT
@@ -453,7 +460,8 @@ class ReactionSystem():
 		fact = self.p0 / self.R / T
 
 		# Ke
-		kb = fact**self.gamma * np.exp(delta_G_over_RT)
+		gamma = np.sum(nuij, axis=0)
+		kb = fact**gamma * np.exp(delta_G_over_RT)
 
 		return kf / kb
 
