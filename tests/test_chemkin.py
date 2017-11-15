@@ -1,5 +1,5 @@
-from chem3.chemkin.chemkin import *
-from chem3.parser.parser import *
+from chem3.chemkin import *
+from chem3.parser import *
 import chem3
 import os
 

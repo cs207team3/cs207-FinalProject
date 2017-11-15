@@ -9,7 +9,7 @@ main directory of this library, titled 'rxns.xml'
 import xml.etree.ElementTree as ET
 import sqlite3
 import numpy as np
-from chem3.chemkin.chemkin import *
+from chem3.chemkin import *
 
 def string_to_dict(s):
     """returns dictionary of species in reaction

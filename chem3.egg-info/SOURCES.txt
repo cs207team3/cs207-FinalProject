@@ -191,15 +191,13 @@ test-requirements.txt
 .eggs/PyScaffold-2.5.8-py3.6.egg/share/pyscaffold/docs/gfx/logo.svg
 .eggs/PyScaffold-2.5.8-py3.6.egg/share/pyscaffold/docs/gfx/sidebar.png
 chem3/__init__.py
+chem3/chemkin.py
+chem3/parser.py
 chem3.egg-info/PKG-INFO
 chem3.egg-info/SOURCES.txt
 chem3.egg-info/dependency_links.txt
 chem3.egg-info/not-zip-safe
 chem3.egg-info/top_level.txt
-chem3/chemkin/__init__.py
-chem3/chemkin/chemkin.py
-chem3/parser/__init__.py
-chem3/parser/parser.py
 docs/Makefile
 docs/authors.rst
 docs/changes.rst
