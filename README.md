@@ -148,7 +148,7 @@ FILL IN HERE
 
 **Envisioned user experience:**
 
-After installing the underlying library, the user will run a command in their terminal to bring up the GUI. They will be presented with a welcome window that offers an option to either `Use reaction input file` or `Manually input reactions`.
+After installing the underlying library, the user will run a command in their terminal to bring up the GUI. They will be presented with a welcome window that offers radio button options to either `Use reaction input file` or `Manually input reactions`. There should be a link to see a `LINK: Properly formatted input file`.
 
 If the user has an input file, there will be a directory search function to find the input file.
 
