@@ -30,9 +30,24 @@ The progress rate for each reaction is given by:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/progress_rate.png "Progress Rate")
 
-The reaction rate of each specie i can be written as:
+The reaction rate of each specie i in an irreversible reaction can be written as:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_rate.png "Reaction Rate")
+
+The reaction rate for each specie in an elementary reversible reaction can be written as:
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/backward_reaction_rate.png "Backward_Reaction Rate")
+
+where:
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/equilibrium_coeff.png "Equilibrium Coefficient")
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/equilibrium_coeff2.png "Equilibrium Coefficient2")
+
+P0 is the pressure of the reactor (we will use 100,000 Pa in this library). Using the NASA polynomials and relationships between the specific heat, enthalpy and entropy, we use the following equations to compute the backwards reaction rate coefficient for elementary reversible reactions:
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/NASA_polynomials.png "NASA Polynomials")
+
 ----
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/variables.png "Variables")
 
