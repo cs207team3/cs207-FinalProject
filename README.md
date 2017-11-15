@@ -84,10 +84,9 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 ----
 
 ### Basic Usage:
-### UPDATE SECTION
 
 After checking out this repository:
-1. Import relative classes and functions from **parser.py** and **chemkin.py**.
+1. Follow installation instructions above: `python setup.py install`
 
 2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
@@ -96,7 +95,7 @@ After checking out this repository:
 
 3.1 To create a reaction system directly from .xml file, use the following code.
 ```
->>> from chemkin import *
+>>> import chem3
 >>> from parser import *
 >>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
 >>> T = 1500 #temperature
