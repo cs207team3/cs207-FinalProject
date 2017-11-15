@@ -114,6 +114,18 @@ def test_full_process():
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
 
+def test_full_process_rev():
+    test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+    test_file = os.path.join(test_data_dir, 'rxns_reversible.xml')
+
+    data = read_data(test_file, db_file)
+    concs = [2., 1., .5, 1., 1., .5, .5, .5]
+    T = 1500
+    system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'])
+    # expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
+    # assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
+    print(system.reaction_rate(concs, T))
+
 def test_system_read_from_file_name():
     concs = [2., 1., .5, 1., 1.]
     T = 1500

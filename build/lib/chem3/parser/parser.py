@@ -68,15 +68,16 @@ def get_coeffs(db_name, species):
         if len(q) == 0: 
             print('Warning, did not find rows given species_name and temp_range. Please double check.')
             return []
-        return list(q[0][3:])
+        return list(q[0][3:]), q[0][2] # coeffs, high
 
     low = np.zeros((len(species), 7))
     high = np.zeros((len(species), 7))
+    temps = np.array(len(species))
     for i, s in enumerate(species):
-        low[i] = get_species_coeffs(s, 'low')
-        high[i] = get_species_coeffs(s, 'high')
+        low[i], temps[i] = get_species_coeffs(s, 'low')
+        high[i], _ = get_species_coeffs(s, 'high')
     db.close()
-    return low, high
+    return low, high, temps
 
 
 def read_data(filename, db_name):
@@ -92,7 +93,7 @@ def read_data(filename, db_name):
     RETURNS:
     =======
     data: dictonary of reactions and species for each reaction in the file
-    (keys = ['reactions', 'species', 'low', 'high'])
+    (keys = ['reactions', 'species', 'low', 'high', 'T_cutoff'])
 
     EXAMPLES:
     ========
@@ -111,7 +112,7 @@ def read_data(filename, db_name):
         data['species'] = phase.find('speciesArray').text.split()
 
         # get coefficients
-        data['low'], data['high'] = get_coeffs(db_name, data['species'])
+        data['low'], data['high'], data['T_cutoff'] = get_coeffs(db_name, data['species'])
         
         # get reaction info
         data['reactions'] = {}
@@ -141,6 +142,7 @@ def read_data(filename, db_name):
         print(ex)
         print('Warning: please check your xml format, ' +
               'returns empty data because format doesn\'t match')
+        return {}
     return data
 
 

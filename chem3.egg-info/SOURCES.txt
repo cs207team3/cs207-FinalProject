@@ -218,9 +218,14 @@ images/reversible_reaction_form.png
 images/variables.png
 tests/conftest.py
 tests/nasa.sqlite
+tests/rxns_reversible.xml
 tests/t.xml
 tests/test_chemkin.py
 tests/travis_install.sh
+tests/test_data/L19DB_demo.sqlite
 tests/test_data/nasa.sqlite
+tests/test_data/nasa.sqlite;
 tests/test_data/rxns.xml
+tests/test_data/rxns_reversible.xml
 tests/test_data/t.xml
+tests/test_data/test.py
