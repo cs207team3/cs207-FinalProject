@@ -11,12 +11,21 @@ addons:
     packages:
       - git
       - python-pip
+
+before_install:    
+     - pip install pytest pytest-cov   
+     - pip install coveralls
+
 install:
   - source tests/travis_install.sh
   - pip install -r requirements.txt
+
 script:
   - python setup.py test
+
 after_success:
+  - coveralls
   - if [[ "$COVERAGE" == "true" ]]; then coveralls || echo "failed"; fi
+  
 cache:
   - apt
