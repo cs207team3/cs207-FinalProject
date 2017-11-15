@@ -14,8 +14,8 @@ def test_reaction_system():
     data = {'reactions': {'test_mechanism': [r1]}, 'species': ['H2', 'O2', 'OH', 'HO2', 'H2O']}
     concs = [2., 1., .5, 1., 1.]
     T = 1500
-    system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T, db_name=db_file)
-    reaction_rates = system.reaction_rate()
+    system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
+    reaction_rates = system.reaction_rate(concs, T)
     expected_answer = np.array([-2.81117621e+08, -2.81117621e+08,
                                 5.62235242e+08,  0.00000000e+00, 0.00000000e+00])
     assert (np.all(np.isclose(reaction_rates, expected_answer)))
@@ -88,19 +88,9 @@ r2 = Reaction({'OH': 1.0, 'HO2': 1.0}, {'H2O': 1.0, 'O2': 1.0}, False, 'Elementa
 data = {'reactions': {'test_mechanism': [r1, r2]}, 'species': ['H2', 'O2', 'OH', 'HO2', 'H2O']}
 concs = [2., 1., .5, 1., 1.]
 T = 1500
-system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T, db_name=db_file)
+system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
 
 # --------------------------------------------------------------------------------------------------------------------------------
-
-def test_reaction_system_init_1():
-    assert (system.concs == concs)
-
-def test_reaction_system_init_2():
-    concs = [2., 1., .5, 1., -1.]
-    try:
-        system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T, db_name=db_file)
-    except ValueError as err:
-        assert (type(err) == ValueError)
 
 def test_init_matrices():
     expected = np.array([[2., 0.], [1., 0.], [0., 1.], [0., 1.], [0., 0.]])
@@ -108,31 +98,27 @@ def test_init_matrices():
     expected = np.array([[1., 0.],[ 0., 1.], [ 2.,  0.], [0., 0.], [0., 1.]])
     assert (np.all(np.isclose(system.nu_prod, expected)))
 
-def test_progress_rate():
-    expected = np.array([281117620.76487046, 5000.0])
-    assert (np.all(np.isclose(system.progress_rate(), expected)))
-
 def test_reaction_rate():
     expected = np.array([ -2.81117621e+08, -2.81112621e+08, 5.62230242e+08, -5.00000000e+03, 5.00000000e+03])
-    assert (np.all(np.isclose(system.reaction_rate(), expected)))
+    assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
 
 def test_full_process():
     test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
     test_file = os.path.join(test_data_dir, 't.xml')
 
-    data = read_data(test_file)
+    data = read_data(test_file, db_file)
     concs = [2., 1., .5, 1., 1.]
     T = 1500
-    system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T, db_name=db_file)
-    assert(len(system) == 3)
+    system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
+    assert(len(system) == 0)
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
-    assert (np.all(np.isclose(system.reaction_rate(), expected)))
+    assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
 
 def test_system_read_from_file_name():
     concs = [2., 1., .5, 1., 1.]
     T = 1500
-    system = ReactionSystem(concs=concs, T=T, filename=test_file, db_name=db_file)
-    assert(len(system) == 3)
+    system = ReactionSystem(filename=test_file)
+    assert(len(system) == 0)
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
-    assert (np.all(np.isclose(system.reaction_rate(), expected)))
+    assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
     

@@ -4,7 +4,6 @@ CHANGES.rst
 LICENSE.txt
 README.md
 README.rst
-nasa.sqlite
 requirements.txt
 setup.cfg
 setup.py

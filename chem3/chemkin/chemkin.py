@@ -210,6 +210,8 @@ class Reaction():
 
 		return A * (T**b) * np.exp(-E / R / T)
 
+import chem3
+import os
 from chem3.parser.parser import read_data
 
 class ReactionSystem():
@@ -246,7 +248,8 @@ class ReactionSystem():
 	[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
 	  -4.47993847e+06]
 	"""
-	def __init__(self, reactions=[], order=[], concs=[], T=0, filename=''):
+	def __init__(self, reactions=[], order=[], nasa7_coeffs_low=[], nasa7_coeffs_high=[],\
+							 filename=''):
 		"""Sets class attributes and returns reference of the class object
 
 		INPUTS
@@ -255,8 +258,6 @@ class ReactionSystem():
 					All reactions in the system
 		order:		list of floats
 					Species of reactants and products in the system
-		concs:		list of floats
-					Concentrations of each corresponding species
 		T:			float
 					Temperature
 					Must be positive
@@ -273,20 +274,30 @@ class ReactionSystem():
 		systems in the future based on our clients' requirements
 
 		"""
+		test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+		db_name = os.path.join(test_data_dir, 'nasa.sqlite')
+
 		if filename:
-			data = read_data(filename)
+			data = read_data(filename, db_name)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
+			nasa7_coeffs_low = data['low']
+			nasa7_coeffs_low = data['high']
 
-		if any(c < 0 for c in concs):
-			raise ValueError('Concentration should not be Negative!')
-
-		self.concs = concs
+		self.reactions = reactions
 		self.nu_react, self.nu_prod = self.init_matrices(reactions, order)
 		self.ks = []
+		
+		self.reversible = []
 		for reac in reactions:
-			reac.set_reac_coefs(T)
-			self.ks.append(reac.k)
+			self.reversible.append(reac.reversible)
+
+		# Coefficients for reversible reaction
+		self.p0 = 1.0e+05
+		self.R = 8.3144598
+		self.nasa7_coeffs_low = nasa7_coeffs_low
+		self.nasa7_coeffs_high = nasa7_coeffs_high
+		self.gamma = np.sum(self.nu_prod - self.nu_react, axis=0)
 
 	def __len__(self):
 		"""Returns the number of reactions in the system"""
@@ -319,7 +330,7 @@ class ReactionSystem():
 					nu_prod[i, j] = reactions[j].products[order[i]]
 		return nu_reac, nu_prod
 
-	def progress_rate(self):
+	def progress_rate(self, T):
 		"""Returns the progress rate of a system of irreversible, elementary reactions
 
 		RETURNS:
@@ -329,21 +340,44 @@ class ReactionSystem():
 			   progress rate of each reaction
 		"""
 
+		# Calcualte forward reaction rate coefficient 
+		self.ks = []
+		for reac in self.reactions:
+			reac.set_reac_coefs(T)
+			self.ks.append(reac.k)
+
 		progress = self.ks.copy() # Initialize progress rates with reaction rate coefficients
 		for jdx, prog in enumerate(progress):
 			if prog < 0:
 				raise ValueError("k = {0:18.16e}:  Negative reaction rate coefficients are prohibited!".format(prog))
+
 			for idx, xi in enumerate(self.concs):
-				nu_ij = self.nu_react[idx, jdx]
+				nu_ijp = self.nu_react[idx, jdx]
 				if xi  < 0.0:
 					raise ValueError("x{0} = {1:18.16e}:  Negative concentrations are prohibited!".format(idx, xi))
-				if nu_ij < 0:
-					raise ValueError("nu_{0}{1} = {2}:  Negative stoichiometric coefficients are prohibited!".format(idx, jdx, nu_ij))
+				if nu_ijp < 0:
+					raise ValueError("nu_{0}{1} = {2}:  Negative stoichiometric coefficients are prohibited!".format(idx, jdx, nu_ijp))
 
-				progress[jdx] *= xi**nu_ij
+				progress[jdx] *= xi**nu_ijp
+
+			
+			# calculate backward progress rate here 
+			back_prog = 0
+			if self.reversible[jdx]:
+				back_prog = self.backward_coeffs(prog, T)
+
+			backward_sub = back_prog
+			for idx, xi in enumerate(self.concs):
+				nu_ijpp = self.nu_prod[idx, jdx]
+				if nu_ijpp < 0:
+					raise ValueError("nu_{0}{1} = {2}:  Negative stoichiometric coefficients are prohibited!".format(idx, jdx, nu_ijpp))
+				backward_sub *= xi**nu_ijpp
+
+			progress[jdx] -= backward_sub
+
 		return progress
 
-	def reaction_rate(self):
+	def reaction_rate(self, concs=[], T=0):
 		"""Returns the reaction rate of a system of irreversible, elementary reactions
 
 		RETURNS:
@@ -352,7 +386,82 @@ class ReactionSystem():
 		   size: number of species
 		   reaction rate of each species
 		"""
-		rates = self.progress_rate()
+		if any(c < 0 for c in concs):
+			raise ValueError('Concentration should not be Negative!')
+		self.concs = concs
+
+		rates = self.progress_rate(T)
 		nu = self.nu_prod - self.nu_react
 
 		return np.dot(nu, rates)
+
+
+	def Cp_over_R(self, T):
+
+		# WARNING:  This line will depend on your own data structures!
+		# Be careful to get the correct coefficients for the appropriate 
+		# temperature range.  That is, for T <= Tmid get the low temperature 
+		# range coeffs and for T > Tmid get the high temperature range coeffs.
+		if T <= self.tmid:
+			a = self.nasa7_coeffs_low
+		else:
+			a = self.nasa7_coeffs_high
+
+		Cp_R = (a[:,0] + a[:,1] * T + a[:,2] * T**2.0 
+				+ a[:,3] * T**3.0 + a[:,4] * T**4.0)
+
+		return Cp_R
+
+	def H_over_RT(self, T):
+
+		# WARNING:  This line will depend on your own data structures!
+		# Be careful to get the correct coefficients for the appropriate 
+		# temperature range.  That is, for T <= Tmid get the low temperature 
+		# range coeffs and for T > Tmid get the high temperature range coeffs.
+		if T <= self.tmid:
+			a = self.nasa7_coeffs_low
+		else:
+			a = self.nasa7_coeffs_high
+
+		H_RT = (a[:,0] + a[:,1] * T / 2.0 + a[:,2] * T**2.0 / 3.0 
+				+ a[:,3] * T**3.0 / 4.0 + a[:,4] * T**4.0 / 5.0 
+				+ a[:,5] / T)
+
+		return H_RT
+			   
+
+	def S_over_R(self, T):
+
+		# WARNING:  This line will depend on your own data structures!
+		# Be careful to get the correct coefficients for the appropriate 
+		# temperature range.  That is, for T <= Tmid get the low temperature 
+		# range coeffs and for T > Tmid get the high temperature range coeffs.
+		if T <= self.tmid:
+			a = self.nasa7_coeffs_low
+		else:
+			a = self.nasa7_coeffs_high
+
+		S_R = (a[:,0] * np.log(T) + a[:,1] * T + a[:,2] * T**2.0 / 2.0 
+			   + a[:,3] * T**3.0 / 3.0 + a[:,4] * T**4.0 / 4.0 + a[:,6])
+
+		return S_R
+
+	def backward_coeffs(self, kf, T):
+
+		# Change in enthalpy and entropy for each reaction
+		delta_H_over_RT = np.dot(self.nuij.T, self.H_over_RT(T))
+		delta_S_over_R = np.dot(self.nuij.T, self.S_over_R(T))
+
+		# Negative of change in Gibbs free energy for each reaction 
+		delta_G_over_RT = delta_S_over_R - delta_H_over_RT
+
+		# Prefactor in Ke
+		fact = self.p0 / self.R / T
+
+		# Ke
+		kb = fact**self.gamma * np.exp(delta_G_over_RT)
+
+		return kf / kb
+
+
+
