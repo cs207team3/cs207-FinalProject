@@ -140,11 +140,11 @@ The GUI will be integrated into the existing code as a graphical overlay to the 
 
 **Modules to be written:**
 
-* GUI.py
+* gui.py
 
 **Methods to implement:**
 
-FILL IN HERE
+*
 
 **Envisioned user experience:**
 
@@ -160,6 +160,6 @@ After the GUI has the reactions, the user specifies specie concentrations (in th
 
 There will be a `Calculate Reaction Rates` button, which presents the system reaction rates at the bottom of the window.
 
-**Required external dependencies:**
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/gui.png "gui")
 
-FILL IN HERE
+**Required external dependencies:**
