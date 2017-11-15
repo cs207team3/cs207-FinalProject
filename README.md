@@ -73,11 +73,11 @@ The data of the relative reactions can be stored in an .xml file.
 
 The user needs to have a **\<phase\>** tag to specify a list of species involved in the reaction. Pay particular attention to the `reversible="no"` or `reversible="yes"` in the **\<reaction>** tag when specifying reaction types. The order should also be consistent with the input for concentrations when a user calculates the reaction rates.
 
-The second tag of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tags when parsing the .xml file.
+The second tag of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. The parser supports multiple reactionData tags when parsing the .xml file.
 
 The user also needs to specify reaction temperature.
 
-For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml).
+For more details of correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml).
 
 If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data structure to the user.
 
@@ -128,11 +128,11 @@ Note: The order the user inputs reaction concentrations will be matched to the r
 ----
 
 ### Future Feature:
-Our proposed future feature will incorporate a Graphical User Interface (GUI) for use with this chemical kinetics library.
+The future feature of this library is a Graphical User Interface (GUI) for use with these chemical kinetics calculations. The GUI will be included during installation of the library.
 
 **Motivation and Description:**
 
-Perhaps the biggest motivation for providing users of our library a GUI is that it can offer users with basic knowledge of python the ability to run their chemical kinetics calculations with confidence. A GUI will offer a user friendly tool with the same functionality of the underlying library. Users will be restricted to specific inputs and offered hints or recommendations directly in the GUI to ensure they use the library properly. Most users will be familiar with GUIs from their daily interaction with modern operating systems, so using a GUI makes sense from a basic usability standpoint.
+The biggest motivation for providing users of this library a GUI is that it can offer users with basic knowledge of python the ability to run their chemical kinetics calculations with confidence. A GUI will offer a user-friendly tool with the same functionality of the underlying library. Users will be restricted to specific inputs and offered hints or recommendations directly in the GUI to ensure they use the library correctly. Most users will be familiar with GUIs from their day-to-day use of modern operating systems, so adding a GUI makes sense from a basic usability standpoint.
 
 **How the GUI will fit into this code base (and package):**
 
@@ -140,11 +140,11 @@ The GUI will be integrated into the existing code as a graphical overlay to the 
 
 **Modules to be written:**
 
-<span style="color: red">FILL IN HERE
+* GUI.py
 
 **Methods to implement:**
 
-<span style="color: red">FILL IN HERE
+FILL IN HERE
 
 **Envisioned user experience:**
 
@@ -162,4 +162,4 @@ There will be a `Calculate Reaction Rates` button, which presents the system rea
 
 **Required external dependencies:**
 
-<span style="color: red">FILL IN HERE
+FILL IN HERE
