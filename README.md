@@ -7,15 +7,16 @@
 
 ---
 
-### User's Guide
+### User's Guide:
+### UPDATE SECTION
 
 ...Please see the chart below for equation symbols and their meaning...
 
 **Introduction:**
 
-The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions should be irreversible and elementary of the form:
+The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions can be reversible or irreversible, and should be elementary of the form:
 
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_form.png "Reaction Form")
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/irreversible_reaction_form.png "Irreversible Reaction Form")
 
 In the future we intend to implement features handling both reversible and non-elementary reactions.
 
@@ -34,6 +35,7 @@ The reaction rate of each specie i can be written as:
 ------
 
 ### Installation:
+### UPDATE SECTION
 
 All the code related to this library can be found in this repository, specifically in the files **parser.py** and **chemkin.py**.
 
@@ -48,6 +50,8 @@ We are not releasing this code as a package yet, but when we do that this sectio
 ----
 
 ### Input Format
+### UPDATE SECTION
+
 The data of the relative reactions can be stored in an .xml file.
 
 The user needs to have **\<phase\>** tag to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
@@ -63,12 +67,16 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 ----
 
 ### Basic Usage:
+### UPDATE SECTION
+
 After checking out this repository:
 1. Import relative classes and functions from **parser.py** and **chemkin.py**.
 
 2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
 #### Code Examples:
+### UPDATE SECTION
+
 3.1 To create a reaction system directly from .xml file, use the following code.
 ```
 >>> from chemkin import *
@@ -99,3 +107,32 @@ After checking out this repository:
 ```
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.
+
+----
+
+### Future Feature:
+Our proposed future feature will incorporate a Graphical User Interface (GUI) for use with this chemical kinetics library.
+
+* Motivation and Description:
+
+FILL IN HERE
+
+* How the GUI will fit into this code base (and package):
+
+FILL IN HERE
+
+* Discuss the modules that you will write to realize your feature
+
+FILL IN HERE
+
+* Methods to implement
+
+FILL IN HERE
+
+* Envisioned user experience:
+
+FILL IN HERE
+
+* Required external dependencies:
+
+FILL IN HERE
