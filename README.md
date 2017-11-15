@@ -144,7 +144,10 @@ The GUI will be integrated into the existing code as a graphical overlay to the 
 
 **Methods to implement:**
 
-*
+* Several classes (gui, interface, windows)
+* Event listeners for buttons to collect input
+* Parsers for button listeners (including checks for proper format)
+* Popup for system reaction rates
 
 **Envisioned user experience:**
 
@@ -165,3 +168,6 @@ Rough GUI layout:
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/gui.png "gui")
 
 **Required external dependencies:**
+
+* Tkinter
+* PyQt
