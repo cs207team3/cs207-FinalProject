@@ -68,11 +68,10 @@ To install this library and run the test suite, download or clone this repositor
 ----
 
 ### Input Format
-### UPDATE SECTION
 
 The data of the relative reactions can be stored in an .xml file.
 
-The user needs to have **\<phase\>** tag to specify a list of species involved in the reaction. Pay particular attention to the The order should also be consistent with the input for concentration when a user calculates the reaction rates.
+The user needs to have a **\<phase\>** tag to specify a list of species involved in the reaction. Pay particular attention to the `reversible="no"` or `reversible="yes"` in the **\<reaction>** tag when specifying reaction types. The order should also be consistent with the input for concentrations when a user calculates the reaction rates.
 
 The second tag of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tags when parsing the .xml file.
 
@@ -133,11 +132,11 @@ Our proposed future feature will incorporate a Graphical User Interface (GUI) fo
 
 **Motivation and Description:**
 
-FILL IN HERE
+Perhaps the biggest motivation for providing users of our library a GUI is that it can offer users with basic knowledge of python the ability to run their chemical kinetics calculations with confidence. A GUI will offer a user friendly tool with the same functionality of the underlying library. Users will be restricted to specific inputs and offered hints or recommendations directly in the GUI to ensure they use the library properly. Most users will be familiar with GUIs from their daily interaction with modern operating systems, so using a GUI makes sense from a basic usability standpoint.
 
 **How the GUI will fit into this code base (and package):**
 
-FILL IN HERE
+The GUI will be integrated into the existing code as a graphical overlay to the underlying modules. It will be installed as part of the `python setup.py install` operation.
 
 **Modules to be written:**
 
@@ -149,7 +148,17 @@ FILL IN HERE
 
 **Envisioned user experience:**
 
-FILL IN HERE
+After installing the underlying library, the user will run a command in their terminal to bring up the GUI. They will be presented with a welcome window that offers an option to either `Use reaction input file` or `Manually input reactions`.
+
+If the user has an input file, there will be a directory search function to find the input file.
+
+If they want to input reactions manually, there will be a series of input boxes to add applicable system reaction information found in a properly formatted file: `species, reaction id, reversible?, type, equation, type of reaction rate coefficient, A, b, E, reactants, and products`.
+
+The GUI will display all the reactions in the GUI after parsing the input file or manual user addition.
+
+After the GUI has the reactions, the user specifies specie concentrations (in the order specified by the species array).
+
+There will be a `Calculate Reaction Rates` button, which presents the system reaction rates at the bottom of the window.
 
 **Required external dependencies:**
 
