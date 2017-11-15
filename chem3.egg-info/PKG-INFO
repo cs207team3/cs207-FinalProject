@@ -1,34 +1,13 @@
 Metadata-Version: 1.1
 Name: chem3
-Version: 0.0.post0.dev116+ng65c32db.dirty
+Version: 0.0.post0.dev120+ng9c3eed6.dirty
 Summary: This is a checmical kinetics library for Harvard University's CS207 course.
-Home-page: none
+Home-page: UNKNOWN
 Author: Jiacheng Shi, Weihang Zhang, & Andrew Lund
 Author-email: shij@g.harvard.edu, weihangzhang@g.harvard.edu, andrewlund@g.harvard.edu
-License: none
+License: UNKNOWN
 Description-Content-Type: UNKNOWN
-Description: =====
-        chem3
-        =====
-        
-        
-        This is a chemical kinetics library for Harvard University's fall 2017
-        CS207 course.
-        
-        
-        Description
-        ===========
-        
-        For a detailed description of this library, please see the top level README.md
-        
-        
-        Note
-        ====
-        
-        This project has been set up using PyScaffold 2.5.8. For details and usage
-        information on PyScaffold see http://pyscaffold.readthedocs.org/.
-        
-        
+Description: UNKNOWN
 Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
 Classifier: Programming Language :: Python
