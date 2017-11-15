@@ -1,12 +1,11 @@
 Metadata-Version: 1.1
 Name: chem3
-Version: 0.0.post0.dev86+ng598e260.dirty
+Version: 0.0.post0.dev91+ng1bada7c.dirty
 Summary: Add a short description here!
 Home-page: http://...
 Author: zhangjams
 Author-email: wzhang76@illinois.edu
 License: none
-Description-Content-Type: UNKNOWN
 Description: =====
         chem3
         =====

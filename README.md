@@ -8,7 +8,7 @@
 ---
 
 ### User's Guide:
-### UPDATE SECTION
+### FIX IMAGES
 
 ...Please see the chart below for equation symbols and their meaning...
 
@@ -48,23 +48,22 @@ P0 is the pressure of the reactor (we will use 100,000 Pa in this library). Usin
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/NASA_polynomials.png "NASA Polynomials")
 
+This library will read in the relevant NASA polynomial coefficients from a database and store them in a data structure based on which species the user specifies in the .xml input file. See more below in the "Input Format" section.
+
 ----
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/variables.png "Variables")
 
 ------
 
 ### Installation:
-### UPDATE SECTION
 
-All the code related to this library can be found in this repository, specifically in the files **parser.py** and **chemkin.py**.
+All the code related to this library can be found in this repository. This includes the NASA polynomials as an SQL database in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
 
-In order to run the test suite accompanying these files, do the following:
+To install this library and run the test suite, download or clone this repository and do the following:
 
-`pytest --doctest-modules --cov-report term-missing --cov chemkin`
+`python setup.py install` - This will install the library
 
-----
-
-We are not releasing this code as a package yet, but when we do that this section will include instructions how how to install the package.
+`python setup.py test` - This will run the test suite
 
 ----
 
@@ -73,7 +72,7 @@ We are not releasing this code as a package yet, but when we do that this sectio
 
 The data of the relative reactions can be stored in an .xml file.
 
-The user needs to have **\<phase\>** tag to specify a list of species involved in the reaction. The order should also be consistent with the input for concentration when a user calculates the reaction rates.
+The user needs to have **\<phase\>** tag to specify a list of species involved in the reaction. Pay particular attention to the The order should also be consistent with the input for concentration when a user calculates the reaction rates.
 
 The second tag of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. Our parser supports multiple reactionData tags when parsing the .xml file.
 
@@ -81,7 +80,7 @@ The user also needs to specify reaction temperature.
 
 For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml).
 
-If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data to the user.
+If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data structure to the user.
 
 ----
 

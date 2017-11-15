@@ -1,24 +1,23 @@
 [metadata]
-name = chem3
-summary = This is a checmical kinetics library for Harvard University's CS207 course.
-author = Jiacheng Shi, Weihang Zhang, & Andrew Lund
-author-email = shij@g.harvard.edu, weihangzhang@g.harvard.edu, andrewlund@g.harvard.edu
-license = none
-home-page = none
+name = ${project}
+summary = ${description}
+author = ${author}
+author-email = ${email}
+license = ${license}
+home-page = ${url}
 description-file = README.rst
 # Add here all kinds of additional classifiers as defined under
 # https://pypi.python.org/pypi?%3Aaction=list_classifiers
 classifier =
-    Development Status :: 4 - Beta
-    Programming Language :: Python
+    ${classifiers}
 
 [entry_points]
 # Add here console scripts like:
 # console_scripts =
-#     script_name = chem3.module:function
+#     script_name = ${package}.module:function
 # For example:
 # console_scripts =
-#     fibonacci = chem3.skeleton:run
+#     fibonacci = ${package}.skeleton:run
 # as well as other entry_points.
 
 
@@ -27,9 +26,9 @@ classifier =
 # Additional data files are defined as key value pairs of target directory
 # and source location from the root of the repository:
 packages =
-    chem3
+    ${root_pkg}
 # data_files =
-#    share/chem3_docs = docs/*
+#    share/${package}_docs = docs/*
 
 [extras]
 # Add here additional requirements for extra features, like:
@@ -47,7 +46,7 @@ addopts = tests
 # e.g. --cov-report html (or xml) for html/xml output or --junitxml junit.xml
 # in order to write a coverage file that can be read by Jenkins.
 addopts =
-    --cov chem3 --cov-report term-missing
+    --cov ${root_pkg} --cov-report term-missing
     --verbose
 
 [aliases]
