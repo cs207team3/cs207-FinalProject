@@ -8,7 +8,7 @@
 ---
 
 ### User's Guide:
-### FIX IMAGES
+### <span style="color: red"> FIX IMAGES
 
 ...Please see the chart below for equation symbols and their meaning...
 
@@ -84,7 +84,7 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 ----
 
 ### Basic Usage:
-### UPDATE SECTION
+### <span style="color: red">UPDATE SECTION
 
 After checking out this repository:
 1. Import relative classes and functions from **parser.py** and **chemkin.py**.
@@ -92,7 +92,7 @@ After checking out this repository:
 2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
 #### Code Examples:
-### UPDATE SECTION
+### <span style="color: red">UPDATE SECTION
 
 3.1 To create a reaction system directly from .xml file, use the following code.
 ```
@@ -140,11 +140,11 @@ The GUI will be integrated into the existing code as a graphical overlay to the 
 
 **Modules to be written:**
 
-FILL IN HERE
+<span style="color: red">FILL IN HERE
 
 **Methods to implement:**
 
-FILL IN HERE
+<span style="color: red">FILL IN HERE
 
 **Envisioned user experience:**
 
@@ -162,4 +162,4 @@ There will be a `Calculate Reaction Rates` button, which presents the system rea
 
 **Required external dependencies:**
 
-FILL IN HERE
+<span style="color: red">FILL IN HERE
