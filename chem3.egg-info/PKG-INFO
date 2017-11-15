@@ -1,0 +1,33 @@
+Metadata-Version: 1.1
+Name: chem3
+Version: 0.0.post0.dev78+ng8c52e02.dirty
+Summary: Add a short description here!
+Home-page: http://...
+Author: zhangjams
+Author-email: wzhang76@illinois.edu
+License: none
+Description-Content-Type: UNKNOWN
+Description: =====
+        chem3
+        =====
+        
+        
+        Add a short description here!
+        
+        
+        Description
+        ===========
+        
+        A longer description of your project goes here...
+        
+        
+        Note
+        ====
+        
+        This project has been set up using PyScaffold 2.5.8. For details and usage
+        information on PyScaffold see http://pyscaffold.readthedocs.org/.
+        
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
