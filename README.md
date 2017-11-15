@@ -16,9 +16,13 @@
 
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions can be reversible or irreversible, and should be elementary of the form:
 
+Irreversible:
+
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/irreversible_reaction_form.png "Irreversible Reaction Form")
 
-In the future we intend to implement features handling both reversible and non-elementary reactions.
+Reversible:
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reversible_reaction_form.png "Reversible Reaction Form")
 
 -----
 
@@ -113,26 +117,26 @@ Note: The order the user inputs reaction concentrations will be matched to the r
 ### Future Feature:
 Our proposed future feature will incorporate a Graphical User Interface (GUI) for use with this chemical kinetics library.
 
-* Motivation and Description:
+**Motivation and Description:**
 
 FILL IN HERE
 
-* How the GUI will fit into this code base (and package):
+**How the GUI will fit into this code base (and package):**
 
 FILL IN HERE
 
-* Discuss the modules that you will write to realize your feature
+**Modules to be written:**
 
 FILL IN HERE
 
-* Methods to implement
+**Methods to implement:**
 
 FILL IN HERE
 
-* Envisioned user experience:
+**Envisioned user experience:**
 
 FILL IN HERE
 
-* Required external dependencies:
+**Required external dependencies:**
 
 FILL IN HERE
