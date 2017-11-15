@@ -1,23 +1,25 @@
 Metadata-Version: 1.1
 Name: chem3
-Version: 0.0.post0.dev91+ng1bada7c.dirty
-Summary: Add a short description here!
-Home-page: http://...
-Author: zhangjams
-Author-email: wzhang76@illinois.edu
+Version: 0.0.post0.dev99+ng9e0b697.dirty
+Summary: This is a checmical kinetics library for Harvard University's CS207 course.
+Home-page: none
+Author: Jiacheng Shi, Weihang Zhang, & Andrew Lund
+Author-email: shij@g.harvard.edu, weihangzhang@g.harvard.edu, andrewlund@g.harvard.edu
 License: none
+Description-Content-Type: UNKNOWN
 Description: =====
         chem3
         =====
         
         
-        Add a short description here!
+        This is a chemical kinetics library for Harvard University's fall 2017
+        CS207 course.
         
         
         Description
         ===========
         
-        A longer description of your project goes here...
+        For a detailed description of this library, please see the top level README.md
         
         
         Note
