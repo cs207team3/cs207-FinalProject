@@ -8,7 +8,7 @@
 ---
 
 ### User's Guide:
-### <span style="color: red"> FIX IMAGES
+### <span style="color: red"> FIX IMAGES </span>
 
 ...Please see the chart below for equation symbols and their meaning...
 
