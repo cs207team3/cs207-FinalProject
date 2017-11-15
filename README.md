@@ -8,7 +8,7 @@
 ---
 
 ### User's Guide:
-### <span style="color: red"> FIX IMAGES </span>
+### FIX IMAGE SIZES
 
 ...Please see the chart below for equation symbols and their meaning...
 
@@ -57,7 +57,7 @@ This library will read in the relevant NASA polynomial coefficients from a datab
 
 ### Installation:
 
-All the code related to this library can be found in this repository. This includes the NASA polynomials as an SQL database in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
+All the code related to this library can be found in this repository. This includes the NASA polynomials stored as an SQL database `NASA.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
 
 To install this library and run the test suite, download or clone this repository and do the following:
 
@@ -77,7 +77,7 @@ The second tag of the .xml file needs to store reaction information wrapped by *
 
 The user also needs to specify reaction temperature.
 
-For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/rxns.xml).
+For more details of correctly formatting the input file, please refer to our [sample input](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml).
 
 If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data structure to the user.
 
