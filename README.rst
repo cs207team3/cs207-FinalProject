@@ -3,13 +3,14 @@ chem3
 =====
 
 
-Add a short description here!
+This is a chemical kinetics library for Harvard University's fall 2017
+CS207 course.
 
 
 Description
 ===========
 
-A longer description of your project goes here...
+For a detailed description of this library, please see the top level README.md
 
 
 Note
