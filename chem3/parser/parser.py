@@ -68,14 +68,14 @@ def get_coeffs(db_name, species):
         if len(q) == 0: 
             print('Warning, did not find rows given species_name and temp_range. Please double check.')
             return []
-        return list(q[0][3:]), q[0][2] # coeffs, high
+        return q[0][2], list(q[0][3:])  # coeffs, high
 
     low = np.zeros((len(species), 7))
     high = np.zeros((len(species), 7))
-    temps = np.array(len(species))
+    temps = np.zeros(len(species))
     for i, s in enumerate(species):
-        low[i], temps[i] = get_species_coeffs(s, 'low')
-        high[i], _ = get_species_coeffs(s, 'high')
+        temps[i], low[i]  = get_species_coeffs(s, 'low')
+        _, high[i] = get_species_coeffs(s, 'high')
     db.close()
     return low, high, temps
 

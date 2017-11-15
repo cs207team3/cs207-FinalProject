@@ -211,6 +211,7 @@ images/NASA_polynomials.png
 images/backward_reaction_rate.png
 images/equilibrium_coeff.png
 images/equilibrium_coeff2.png
+images/gui.png
 images/irreversible_reaction_form.png
 images/progress_rate.png
 images/reaction_rate.png

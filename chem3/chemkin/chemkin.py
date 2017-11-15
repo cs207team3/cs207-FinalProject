@@ -248,7 +248,7 @@ class ReactionSystem():
 	[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
 	  -4.47993847e+06]
 	"""
-	def __init__(self, reactions=[], order=[], nasa7_coeffs_low=[], nasa7_coeffs_high=[],\
+	def __init__(self, reactions=[], order=[], nasa7_coeffs_low=[], nasa7_coeffs_high=[], tmid=[],\
 							 filename=''):
 		"""Sets class attributes and returns reference of the class object
 
@@ -283,6 +283,7 @@ class ReactionSystem():
 			order = data['species']
 			nasa7_coeffs_low = data['low']
 			nasa7_coeffs_low = data['high']
+			tmid = data['T_cutoff']
 
 		self.order = order
 		self.reactions = reactions
@@ -290,7 +291,7 @@ class ReactionSystem():
 		self.ks = []
 
 		# Coefficients for reversible reaction
-		self.tmid = 1000
+		self.tmid = tmid
 		self.p0 = 1.0e+05
 		self.R = 8.3144598
 		self.nasa7_coeffs_low = nasa7_coeffs_low
@@ -403,10 +404,12 @@ class ReactionSystem():
 		# Be careful to get the correct coefficients for the appropriate 
 		# temperature range.  That is, for T <= Tmid get the low temperature 
 		# range coeffs and for T > Tmid get the high temperature range coeffs.
-		if T <= self.tmid:
-			a = np.array(self.nasa7_coeffs_low)
-		else:
-			a = np.array(self.nasa7_coeffs_high)
+		a = np.zeros(self.nasa7_coeffs_low.shape)
+		for i, tmid in enumerate(self.tmid):
+			if T < tmid:
+				a[i] = self.nasa7_coeffs_low[i]
+			else:
+				a[i] = self.nasa7_coeffs_high[i]
 
 		Cp_R = (a[:,0] + a[:,1] * T + a[:,2] * T**2.0 
 				+ a[:,3] * T**3.0 + a[:,4] * T**4.0)
@@ -419,10 +422,12 @@ class ReactionSystem():
 		# Be careful to get the correct coefficients for the appropriate 
 		# temperature range.  That is, for T <= Tmid get the low temperature 
 		# range coeffs and for T > Tmid get the high temperature range coeffs.
-		if T <= self.tmid:
-			a = np.array(self.nasa7_coeffs_low)
-		else:
-			a = np.array(self.nasa7_coeffs_high)
+		a = np.zeros(self.nasa7_coeffs_low.shape)
+		for i, tmid in enumerate(self.tmid):
+			if T < tmid:
+				a[i] = self.nasa7_coeffs_low[i]
+			else:
+				a[i] = self.nasa7_coeffs_high[i]
 
 		H_RT = (a[:,0] + a[:,1] * T / 2.0 + a[:,2] * T**2.0 / 3.0 
 				+ a[:,3] * T**3.0 / 4.0 + a[:,4] * T**4.0 / 5.0 
@@ -437,10 +442,12 @@ class ReactionSystem():
 		# Be careful to get the correct coefficients for the appropriate 
 		# temperature range.  That is, for T <= Tmid get the low temperature 
 		# range coeffs and for T > Tmid get the high temperature range coeffs.
-		if T <= self.tmid:
-			a = np.array(self.nasa7_coeffs_low)
-		else:
-			a = np.array(self.nasa7_coeffs_high)
+		a = np.zeros(self.nasa7_coeffs_low.shape)
+		for i, tmid in enumerate(self.tmid):
+			if T < tmid:
+				a[i] = self.nasa7_coeffs_low[i]
+			else:
+				a[i] = self.nasa7_coeffs_high[i]
 
 		S_R = (a[:,0] * np.log(T) + a[:,1] * T + a[:,2] * T**2.0 / 2.0 
 			   + a[:,3] * T**3.0 / 3.0 + a[:,4] * T**4.0 / 4.0 + a[:,6])
