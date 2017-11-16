@@ -54,7 +54,10 @@ def get_coeffs(db_name, species):
 
     EXAMPLES:
     ========
-    >>> high = get_coeffs('nasa.sqlite', ['O', 'O2', 'H', 'H2', 'OH', 'H2O', 'HO2', 'H2O2'])[1]
+    >>> import os
+    >>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+    >>> db_name = os.path.join(test_data_dir, 'nasa.sqlite')
+    >>> high = get_coeffs(db_name, ['O', 'O2', 'H', 'H2', 'OH', 'H2O', 'HO2', 'H2O2'])[1]
     >>> high[2][2]
     -1.99591964e-15
     """
@@ -97,7 +100,11 @@ def read_data(filename, db_name):
 
     EXAMPLES:
     ========
-    >>> data = read_data('t.xml', 'nasa.sqlite')
+    >>> import os
+    >>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+    >>> db_name = os.path.join(test_data_dir, 'nasa.sqlite')
+    >>> file_name = os.path.join(test_data_dir, 't.xml')
+    >>> data = read_data(file_name, db_name)
     >>> data['species']
     ['H2', 'O2', 'OH', 'HO2', 'H2O']
     """

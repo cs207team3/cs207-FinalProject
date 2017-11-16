@@ -45,7 +45,7 @@ class Reaction():
 	...  		  False, 'Elementary', 'reaction01',
 	...  		  'modifiedArrhenius', coefs)
 	>>> type(r1)
-	<class 'chemkin.Reaction'>
+	<class 'chem3.chemkin.Reaction'>
 	>>> r1.set_reac_coefs(100)
 	>>> r1.init_const_coef(5)
 	5
@@ -239,12 +239,16 @@ class ReactionSystem():
 
 	EXAMPLES:
 	========
-	>>> import parser
-	>>> data = parser.read_data('t.xml')
+	>>> from chem3.parser import read_data
+	>>> import os
+	>>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+	>>> db_name = os.path.join(test_data_dir, 'nasa.sqlite')
+	>>> file_name = os.path.join(test_data_dir, 't.xml')
+	>>> data = read_data(file_name, db_name)
 	>>> concs = [2., 1., .5, 1., 1.]
 	>>> T = 1500
-	>>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
-	>>> print(system.reaction_rate())
+	>>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
+	>>> print(system.reaction_rate(concs, T))
 	[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
 	  -4.47993847e+06]
 	"""
