@@ -95,30 +95,38 @@ After checking out this repository:
 
 3.1 To create a reaction system directly from .xml file, use the following code.
 ```
->>> import chem3
->>> from parser import *
+>>> from chem3.chemkin import *
+>>> from chem3.parser import *
+>>> import os
 >>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
 >>> T = 1500 #temperature
->>> system = ReactionSystem(concs=concs, T=T, filename='t.xml')
+>>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+>>> test_file = os.path.join(test_data_dir, 't.xml')
+>>> system = ReactionSystem(filename=test_file)
 >>> # calculate reaction rates
->>> reaction_rates = system.reaction_rate()
+>>> reaction_rates = system.reaction_rate(concs, T)
+>>> reaction_rates
 [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
 ```
 
 3.2 To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
 
 ```
->>> from chemkin import *
->>> from parser import *
+>>> from chem3.chemkin import *
+>>> from chem3.parser import *
+>>> import os
 >>> # parse data from xml file
->>> data = read_data('t.xml')
+>>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
+>>> test_file = os.path.join(test_data_dir, 't.xml')
+>>> db_file = os.path.join(test_data_dir, 'nasa.sqlite')
+>>> data = read_data(test_file, db_file)
 >>> # specify concentration list and current temperature
 >>> concs = [2., 1., .5, 1., 1.]
 >>> T = 1500
 >>> # create a system of the reactions
->>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], concs, T)
+>>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
 >>> # calculate reaction rates
->>> reaction_rates = system.reaction_rate()
+>>> reaction_rates = system.reaction_rate(concs, T)
 [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
 ```
 
