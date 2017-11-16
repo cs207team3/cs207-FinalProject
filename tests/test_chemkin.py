@@ -124,8 +124,10 @@ def test_full_process_rev():
     system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'])
     # expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     # assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
-    print(system.reaction_rate(concs, T))
-    assert(system.reaction_rate(concs, T) == [0]*8)
+    expected = np.array([7.58800198e+15, -7.55393354e+15, -7.87061311e+15, 3.01454055e+13,\
+                             1.88251887e+14, 7.73922038e+15, -8.79625439e+13, -3.31104554e+13])
+    assert(np.all(np.isclose(system.reaction_rate(concs, T), expected)))
+
 
 def test_system_read_from_file_name():
     concs = [2., 1., .5, 1., 1.]

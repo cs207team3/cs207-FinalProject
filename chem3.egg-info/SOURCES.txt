@@ -1,6 +1,4 @@
 .travis.yml
-AUTHORS.rst
-CHANGES.rst
 LICENSE.txt
 README.md
 requirements.txt
