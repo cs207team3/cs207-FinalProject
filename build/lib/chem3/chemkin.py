@@ -399,11 +399,16 @@ class ReactionSystem():
 
 
 	def Cp_over_R(self, T):
+		"""Helper function that calculates Cp/R
 
-		# WARNING:  This line will depend on your own data structures!
-		# Be careful to get the correct coefficients for the appropriate 
-		# temperature range.  That is, for T <= Tmid get the low temperature 
-		# range coeffs and for T > Tmid get the high temperature range coeffs.
+		INPUTS
+		======
+		T:		Temperature to select nasa coefficient table
+
+		RETURNS:
+		=======
+		Cp_R: 	Calculated Cp/R
+		"""
 		a = np.zeros(self.nasa7_coeffs_low.shape)
 		for i, tmid in enumerate(self.tmid):
 			if T < tmid:
@@ -417,11 +422,16 @@ class ReactionSystem():
 		return Cp_R
 
 	def H_over_RT(self, T):
+		"""Helper function to calculate H/(RT)
 
-		# WARNING:  This line will depend on your own data structures!
-		# Be careful to get the correct coefficients for the appropriate 
-		# temperature range.  That is, for T <= Tmid get the low temperature 
-		# range coeffs and for T > Tmid get the high temperature range coeffs.
+		INPUTS
+		======
+		T:		Temperature to select nasa coefficient table
+
+		RETURNS:
+		=======
+		H_RT: 	Calculated H/(RT)
+		"""
 		a = np.zeros(self.nasa7_coeffs_low.shape)
 		for i, tmid in enumerate(self.tmid):
 			if T < tmid:
@@ -437,11 +447,16 @@ class ReactionSystem():
 			   
 
 	def S_over_R(self, T):
+		"""Helper function to calculate S/R
 
-		# WARNING:  This line will depend on your own data structures!
-		# Be careful to get the correct coefficients for the appropriate 
-		# temperature range.  That is, for T <= Tmid get the low temperature 
-		# range coeffs and for T > Tmid get the high temperature range coeffs.
+		INPUTS
+		======
+		T:		Temperature to select nasa coefficient table
+
+		RETURNS:
+		=======
+		S_R: 	Calculated S/R
+		"""
 		a = np.zeros(self.nasa7_coeffs_low.shape)
 		for i, tmid in enumerate(self.tmid):
 			if T < tmid:
@@ -455,6 +470,19 @@ class ReactionSystem():
 		return S_R
 
 	def backward_coeffs(self, nuij, kf, T):
+		"""Calculates the backward coefficients: first calculatest the 
+			equilibrium coeffients and then calculate backward coefficients
+
+		INPUTS
+		======
+		nuij:	nuijpp - nuijp -> product nuij - reactant nuij
+		kf: 	Forward progress rate of current reaction
+		T:		Temperature to select nasa coefficient table
+
+		RETURNS:
+		=======
+		kf / kb: 	Calculated backward progress rate
+		"""
 
 		# Change in enthalpy and entropy for each reaction
 		delta_H_over_RT = np.dot(nuij.T, self.H_over_RT(T))
