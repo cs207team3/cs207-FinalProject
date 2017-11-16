@@ -1,11 +1,9 @@
 .travis.yml
-LICENSE.txt
 README.md
 requirements.txt
 setup.cfg
 setup.py
 test-requirements.txt
-.eggs/README.txt
 chem3/__init__.py
 chem3/chemkin.py
 chem3/parser.py
