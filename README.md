@@ -8,7 +8,6 @@
 ---
 
 ### User's Guide:
-### FIX IMAGE SIZES
 
 ...Please see the chart below for equation symbols and their meaning...
 
@@ -94,7 +93,6 @@ After checking out this repository:
 2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
 #### Code Examples:
-### UPDATE SECTION
 
 3.1 To create a reaction system directly from a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml input file, use the following code.
 ```
