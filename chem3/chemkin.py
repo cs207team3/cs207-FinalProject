@@ -286,7 +286,7 @@ class ReactionSystem():
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
 			nasa7_coeffs_low = data['low']
-			nasa7_coeffs_low = data['high']
+			nasa7_coeffs_high = data['high']
 			tmid = data['T_cutoff']
 
 		self.order = order
