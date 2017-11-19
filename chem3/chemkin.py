@@ -3,7 +3,7 @@ This is a chemical kinetics module which can be used to calculate the reaction
 rate of a system of elementary, reversible and irreversible reactions.
 
 Future updates are intended to address more reaciton types (duplicate,
-three-body, and reversible).
+three-body).
 
 For more infomation regarding chemical kinetics, please visit:
 https://en.wikipedia.org/wiki/Chemical_kinetics
