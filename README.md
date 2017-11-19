@@ -98,7 +98,6 @@ After checking out this repository:
 ```
 >>> from chem3.chemkin import *
 >>> from chem3.parser import *
->>> import os
 >>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
 >>> T = 1500 #temperature
 >>> system = ReactionSystem(filename='t.xml')
@@ -121,7 +120,7 @@ After checking out this repository:
 >>> concs = [2., 1., .5, 1., 1.]
 >>> T = 1500
 >>> # create a system of the reactions
->>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
+>>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'])
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 [ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
