@@ -115,15 +115,15 @@ After checking out this repository:
 >>> import os
 >>> # parse data from xml file
 >>> db_file = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
->>> data = read_data('t.xml', db_file)
+>>> data = read_data('rxns_reversible.xml', db_file)
 >>> # specify concentration list and current temperature
 >>> concs = [2., 1., .5, 1., 1.]
 >>> T = 1500
 >>> # create a system of the reactions
->>> system = ReactionSystem(data['reactions']['test_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'])
+>>> system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'], data['T_range'])
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
-[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
+[ 4.56682508e+13   -3.27169357e+14   1.17295776e+13	 7.60278506e+13  7.20475762e+13  3.73642176e+14  -1.50343467e+14  -1.01602607e+14]
 ```
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.
