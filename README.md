@@ -59,11 +59,14 @@ This library will read in the relevant NASA polynomial coefficients from a datab
 
 All the code related to this library can be found in this repository. This includes the NASA polynomials stored as an SQL database `NASA.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
 
-To install this library and run the test suite, download or clone this repository and do the following:
+To install this library and run the test suite:
+1. Download or clone this repository.
+2. Using your terminal, navigate to the local `cs207-FinalProject` folder.
+3. Enter `python setup.py install` - This will install the library.
+4. Enter `python setup.py test` - This will run the library's test suite.
+5. You are now ready to start calculating reaction rates.
 
-`python setup.py install` - This will install the library
-
-`python setup.py test` - This will run the test suite
+See the "Input Format" and "Basic Usage" for more step-by-step instructions.
 
 ----
 
