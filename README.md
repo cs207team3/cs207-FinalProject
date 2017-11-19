@@ -100,7 +100,7 @@ After checking out this repository:
 >>> from chem3.parser import *
 >>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
 >>> T = 1500 #temperature
->>> system = ReactionSystem(filename='t.xml')
+>>> system = ReactionSystem(filename='t.xml') #local reaction .xml file
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 >>> reaction_rates
