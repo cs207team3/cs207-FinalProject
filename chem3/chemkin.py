@@ -281,7 +281,6 @@ class ReactionSystem():
 		db_name = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
 
 		if filename:
-			print(db_name)
 			data = read_data(filename, db_name)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
