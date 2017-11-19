@@ -121,7 +121,8 @@ def test_full_process_rev():
     data = read_data(test_file, db_file)
     concs = [2., 1., .5, 1., 1., .5, .5, .5]
     T = 900
-    system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'])
+    system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'],\
+                data['T_cutoff'], data['T_range'])
     expected = np.array([7.58800198e+15, -7.55393354e+15, -7.87061311e+15, 3.01454055e+13,\
                              1.88251887e+14, 7.73922038e+15, -8.79625439e+13, -3.31104554e+13])
     assert(np.all(np.isclose(system.reaction_rate(concs, T), expected)))
@@ -133,7 +134,8 @@ def test_full_process_rev_1():
     data = read_data(test_file, db_file)
     concs = [2., 1., .5, 1., 1., .5, .5, .5]
     T = 100
-    system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'])
+    system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'],\
+                 data['T_cutoff'], data['T_range'])
 
     try:
         system.reaction_rate(concs, T)
