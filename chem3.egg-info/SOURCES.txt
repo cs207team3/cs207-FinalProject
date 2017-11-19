@@ -1,11 +1,14 @@
 .travis.yml
+MANIFEST.in
 README.md
+nasa.sqlite
 requirements.txt
 setup.cfg
 setup.py
 test-requirements.txt
 chem3/__init__.py
 chem3/chemkin.py
+chem3/nasa.sqlite
 chem3/parser.py
 chem3.egg-info/PKG-INFO
 chem3.egg-info/SOURCES.txt

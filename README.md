@@ -101,9 +101,7 @@ After checking out this repository:
 >>> import os
 >>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
 >>> T = 1500 #temperature
->>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
->>> test_file = os.path.join(test_data_dir, 't.xml')
->>> system = ReactionSystem(filename=test_file)
+>>> system = ReactionSystem(filename='t.xml')
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 >>> reaction_rates
@@ -117,10 +115,8 @@ After checking out this repository:
 >>> from chem3.parser import *
 >>> import os
 >>> # parse data from xml file
->>> test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
->>> test_file = os.path.join(test_data_dir, 't.xml')
->>> db_file = os.path.join(test_data_dir, 'nasa.sqlite')
->>> data = read_data(test_file, db_file)
+>>> db_file = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
+>>> data = read_data('t.xml', db_file)
 >>> # specify concentration list and current temperature
 >>> concs = [2., 1., .5, 1., 1.]
 >>> T = 1500

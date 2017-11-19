@@ -5,7 +5,7 @@ import os
 
 test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
 test_file = os.path.join(test_data_dir, 't.xml')
-db_file = os.path.join(test_data_dir, 'nasa.sqlite')
+db_file = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
 
 def test_reaction_system():
     # data = read_data('t.xml')
