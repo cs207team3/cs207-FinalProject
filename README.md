@@ -96,7 +96,7 @@ After checking out this repository:
 #### Code Examples:
 ### UPDATE SECTION
 
-3.1 To create a reaction system directly from .xml file, use the following code.
+3.1 To create a reaction system directly from a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml input file, use the following code.
 ```
 >>> from chem3.chemkin import *
 >>> from chem3.parser import *
