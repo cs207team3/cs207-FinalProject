@@ -88,7 +88,7 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 ### Basic Usage:
 
 After checking out this repository:
-1. Follow installation instructions above: `python setup.py install`
+1. Follow installation instructions above: `python setup.py install`, `python setup.py test`.
 
 2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
