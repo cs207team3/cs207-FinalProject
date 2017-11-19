@@ -44,6 +44,10 @@ def get_coeffs(db_name, species):
     species:    array of str
                 A list of species to ensure coefficient 
                 and matrix will use the same order of species array
+    temp_mid:   numpy array of float
+                temperature cutoff between high, low
+    temp_range: numpy array of float
+                appropriate temperature range of each species in the reaction
 
     RETURNS:
     =======
@@ -71,16 +75,17 @@ def get_coeffs(db_name, species):
         if len(q) == 0: 
             print('Warning, did not find rows given species_name and temp_range. Please double check.')
             return []
-        return q[0][2], list(q[0][3:])  # coeffs, high
+        return q[0][1], q[0][2], list(q[0][3:])  # t_min, t_high, coeffs
 
     low = np.zeros((len(species), 7))
     high = np.zeros((len(species), 7))
-    temps = np.zeros(len(species))
+    temp_mid = np.zeros(len(species)) # temperature cutoff
+    temp_range = np.zeros((len(species), 2)) # (t_low, t_high) for each species
     for i, s in enumerate(species):
-        temps[i], low[i]  = get_species_coeffs(s, 'low')
-        _, high[i] = get_species_coeffs(s, 'high')
+        temp_range[i][0], temp_mid[i], low[i], = get_species_coeffs(s, 'low')
+        _, temp_range[i][1], high[i] = get_species_coeffs(s, 'high')
     db.close()
-    return low, high, temps
+    return low, high, temp_mid, temp_range
 
 
 def read_data(filename, db_name):
@@ -96,7 +101,7 @@ def read_data(filename, db_name):
     RETURNS:
     =======
     data: dictonary of reactions and species for each reaction in the file
-    (keys = ['reactions', 'species', 'low', 'high', 'T_cutoff'])
+    (keys = ['reactions', 'species', 'low', 'high', 'T_cutoff', 'T_range'])
 
     EXAMPLES:
     ========
@@ -119,7 +124,8 @@ def read_data(filename, db_name):
         data['species'] = phase.find('speciesArray').text.split()
 
         # get coefficients
-        data['low'], data['high'], data['T_cutoff'] = get_coeffs(db_name, data['species'])
+        data['low'], data['high'], data['T_cutoff'], data['T_range'] = \
+        get_coeffs(db_name, data['species'])
         
         # get reaction info
         data['reactions'] = {}
