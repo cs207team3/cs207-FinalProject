@@ -278,10 +278,10 @@ class ReactionSystem():
 		systems in the future based on our clients' requirements
 
 		"""
-		test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
-		db_name = os.path.join(test_data_dir, 'nasa.sqlite')
+		db_name = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
 
 		if filename:
+			print(db_name)
 			data = read_data(filename, db_name)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
