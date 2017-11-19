@@ -1,6 +1,6 @@
 """
 This is a chemical kinetics module which can be used to calculate the reaction
-rate of a system of elementary, irreversible reactions.
+rate of a system of elementary, reversible and irreversible reactions.
 
 Future updates are intended to address more reaciton types (duplicate,
 three-body, and reversible).
@@ -252,7 +252,7 @@ class ReactionSystem():
 	[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06
 	  -4.47993847e+06]
 	"""
-	def __init__(self, reactions=[], order=[], nasa7_coeffs_low=[], nasa7_coeffs_high=[], tmid=[],\
+	def __init__(self, reactions=[], order=[], nasa7_coeffs_low=[], nasa7_coeffs_high=[], tmid=[], trange=[],\
 							 filename=''):
 		"""Sets class attributes and returns reference of the class object
 
@@ -281,13 +281,13 @@ class ReactionSystem():
 		db_name = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
 
 		if filename:
-			print(db_name)
 			data = read_data(filename, db_name)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
 			nasa7_coeffs_low = data['low']
 			nasa7_coeffs_high = data['high']
 			tmid = data['T_cutoff']
+			trange = data['T_range']
 
 		self.order = order
 		self.reactions = reactions
@@ -295,6 +295,7 @@ class ReactionSystem():
 		self.ks = []
 
 		# Coefficients for reversible reaction
+		self.trange = trange
 		self.tmid = tmid
 		self.p0 = 1.0e+05
 		self.R = 8.3144598
@@ -487,6 +488,10 @@ class ReactionSystem():
 		=======
 		kf / kb: 	Calculated backward progress rate
 		"""
+
+		for i, ran in enumerate(self.trange):
+			if T < ran[0] or T > ran[1]:
+				raise ValueError("This Temperature is out of range!")
 
 		# Change in enthalpy and entropy for each reaction
 		delta_H_over_RT = np.dot(nuij.T, self.H_over_RT(T))
