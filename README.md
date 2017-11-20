@@ -98,13 +98,13 @@ After checking out this repository:
 ```
 >>> from chem3.chemkin import *
 >>> from chem3.parser import *
->>> concs = [2., 1., .5, 1., 1.] #reactant concentrations
->>> T = 1500 #temperature
->>> system = ReactionSystem(filename='t.xml') #local reaction .xml file
+>>> concs = [2., 1., .5, 1., 1., .5, .5, .5] #reactant concentrations
+>>> T = 900 #temperature
+>>> system = ReactionSystem(filename='rxns_reversible.xml') #local reaction .xml file
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 >>> reaction_rates
-[ -2.81117621e+08  -2.85597559e+08   5.66715180e+08   4.47993847e+06  -4.47993847e+06]
+[ 7.58800198e+15  -7.55393354e+15  -7.87061311e+15  3.01454055e+13  1.88251887e+14  7.73922038e+15  -8.79625439e+13  -3.31104554e+13]
 ```
 
 3.2 To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
@@ -117,14 +117,14 @@ After checking out this repository:
 >>> db_file = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
 >>> data = read_data('rxns_reversible.xml', db_file)
 >>> # specify concentration list and current temperature
->>> concs = [2., 1., .5, 1., 1.]
+>>> concs = [2., 1., .5, 1., 1., .5, .5, .5]
 >>> T = 1500
 >>> # create a system of the reactions
 >>> system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'], data['T_range'])
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 >>> reaction_rates
-[ 4.56682508e+13   -3.27169357e+14   1.17295776e+13	 7.60278506e+13  7.20475762e+13  3.73642176e+14  -1.50343467e+14  -1.01602607e+14]
+[2.21453827e+14  -3.51228629e+14  -2.08730411e+14  3.50259248e+13  4.69995361e+13  3.82452786e+14  -7.51717305e+13  -5.08013037e+13]
 ```
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.

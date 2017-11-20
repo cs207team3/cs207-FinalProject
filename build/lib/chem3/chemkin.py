@@ -393,6 +393,9 @@ class ReactionSystem():
 		   size: number of species
 		   reaction rate of each species
 		"""
+		if len(concs) != len(self.order):
+			raise ValueError("Concentration length doesn't match number of species!")
+
 		if any(c < 0 for c in concs):
 			raise ValueError('Concentration should not be Negative!')
 		self.concs = concs
