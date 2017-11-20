@@ -123,6 +123,7 @@ After checking out this repository:
 >>> system = ReactionSystem(data['reactions']['hydrogen_air_mechanism'], data['species'], data['low'], data['high'], data['T_cutoff'], data['T_range'])
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
+>>> reaction_rates
 [ 4.56682508e+13   -3.27169357e+14   1.17295776e+13	 7.60278506e+13  7.20475762e+13  3.73642176e+14  -1.50343467e+14  -1.01602607e+14]
 ```
 
