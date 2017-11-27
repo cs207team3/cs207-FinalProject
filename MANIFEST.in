@@ -1,1 +1,2 @@
 include chem3/nasa.sqlite
+include chem3/nasa_full.sqlite
