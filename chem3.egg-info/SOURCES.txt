@@ -1,16 +1,10 @@
 .travis.yml
 MANIFEST.in
 README.md
-nasa.sqlite
-nasa_full.sqlite
 requirements.txt
 setup.cfg
 setup.py
 test-requirements.txt
-UNKNOWN.egg-info/PKG-INFO
-UNKNOWN.egg-info/SOURCES.txt
-UNKNOWN.egg-info/dependency_links.txt
-UNKNOWN.egg-info/top_level.txt
 chem3/__init__.py
 chem3/chemkin.py
 chem3/gui.py
