@@ -12,8 +12,9 @@ addons:
       - git
       - python-pip
 
-ignore:
-  - chem3/flask/*
+skip_commits:
+  files:
+    - chem3/flask/*
 
 before_install:    
      - pip install pytest pytest-cov   
