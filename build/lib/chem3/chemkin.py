@@ -301,8 +301,6 @@ class ReactionSystem():
 		self.R = 8.3144598
 		self.nasa7_coeffs_low = nasa7_coeffs_low
 		self.nasa7_coeffs_high = nasa7_coeffs_high
-		print(nasa7_coeffs_low)
-		print(nasa7_coeffs_high)
 
 	def __len__(self):
 		"""Returns the number of reactions in the system"""
@@ -374,7 +372,6 @@ class ReactionSystem():
 				# 	if self.order[i] in self.reactions[jdx].reactants:
 				# 		cols.append(i)
 				back_prog = self.backward_coeffs(self.nu_prod[:, jdx] - self.nu_react[:, jdx], self.ks[jdx], T)
-				print(back_prog)
 
 			backward_sub = back_prog
 			for idx, xi in enumerate(self.concs):
