@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chemkin Webapp</title>
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+<body>
+
+  <h1> Chemkin Webapp </h1>
+
+  <form action = "http://localhost:5000/upload_file" method = "POST" enctype = "multipart/form-data">
+    <input type = "file" name = "file" />
+    <input type = "submit"/> 
+  </form>
+
+  <form action = "http://localhost:5000/upload_text" method = "POST">
+    Temperature: <input name="temp" placeholder="500"/>
+    Concentrations: <input name="concs" placeholder="0.5, 1, 2.0"/>
+    <input type="submit"/>
+  </form>
+
+  <!-- {% if messages %} -->
+  <!-- <text> {{ messages }} </text> -->
+  <!-- {% endif %} -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
