@@ -9,7 +9,7 @@ main directory of this library, titled 'rxns.xml'
 import xml.etree.ElementTree as ET
 import sqlite3
 import numpy as np
-from chem3.chemkin import *
+import chem3.chemkin
 
 def string_to_dict(s):
     """returns dictionary of species in reaction
@@ -139,6 +139,7 @@ def read_data(filename, db_name):
                 reac_type = reaction.get('type')
                 reac_id = reaction.get('id')
                 coefs_block = reaction.find('rateCoeff')
+                equation = reaction.find('equation').text
                 coef = {}
                 for arr in coefs_block:
                     coef_type = arr.tag
@@ -146,9 +147,9 @@ def read_data(filename, db_name):
                     for param in params_block:
                         key = param.tag
                         coef[key] = float(params_block.find(key).text)
-                reactions.append(Reaction(reactants, products,
+                reactions.append(chem3.chemkin.Reaction(reactants, products,
                                          reversible, reac_type,
-                                         reac_id, coef_type, coef))
+                                         reac_id, coef_type, coef, equation))
                 data['reactions'][reaction_id] = reactions
 
     except AttributeError as ex:

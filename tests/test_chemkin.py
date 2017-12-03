@@ -1,6 +1,6 @@
+import chem3
 from chem3.chemkin import *
 from chem3.parser import *
-import chem3
 import os
 
 test_data_dir = os.path.join(os.path.dirname(chem3.__file__), '../tests/test_data')
