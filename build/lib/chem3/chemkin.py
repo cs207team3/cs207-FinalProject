@@ -53,7 +53,8 @@ class Reaction():
 	1.9927962618542914
 
 	"""
-	def __init__(self, reactants, products, reversible, reac_type, reac_id, coef_type, coef):
+	def __init__(self, reactants, products, reversible, 
+		         reac_type, reac_id, coef_type, coef, equation=''):
 		"""Sets class attributes and returns reference of the class object
 
 		INPUTS
@@ -73,7 +74,9 @@ class Reaction():
 					Must be either Constant, Arrhenius, or modifiedArrhenius
 		coef:		dict
 					Contains values of A, b, E
-
+		equation:	str 
+					Equation of the reation
+					Optional
 		"""
 		self.reactants = reactants
 		self.products = products
@@ -82,6 +85,7 @@ class Reaction():
 		self.reac_id = reac_id
 		self.coef_type = coef_type
 		self.coef = coef
+		self.equation = equation
 
 	def __eq__(self, other):
 		"""Overrides equality operator:
@@ -103,7 +107,8 @@ class Reaction():
 			   '\nReaction Type: ' + self.reac_type + \
 			   '\nReaction Id: ' + self.reac_id + \
 			   '\nCoefficient Type: ' + self.coef_type + \
-			   '\nCoefficients: ' + str(self.coef)
+			   '\nCoefficients: ' + str(self.coef) + \
+			   '\nEquation: ' + str(self.equation)
 
 
 	def set_reac_coefs(self, T):
@@ -212,7 +217,7 @@ class Reaction():
 
 import chem3
 import os
-from chem3.parser import read_data
+import chem3.parser
 
 class ReactionSystem():
 	"""ReactionSystem Class for chemical kinetics calculations
@@ -281,7 +286,7 @@ class ReactionSystem():
 		db_name = os.path.join(os.path.dirname(chem3.__file__), 'nasa.sqlite')
 
 		if filename:
-			data = read_data(filename, db_name)
+			data = chem3.parser.read_data(filename, db_name)
 			reactions = next(iter(data['reactions'].values()))
 			order = data['species']
 			nasa7_coeffs_low = data['low']

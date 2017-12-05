@@ -107,7 +107,8 @@ class Reaction():
 			   '\nReaction Type: ' + self.reac_type + \
 			   '\nReaction Id: ' + self.reac_id + \
 			   '\nCoefficient Type: ' + self.coef_type + \
-			   '\nCoefficients: ' + str(self.coef)
+			   '\nCoefficients: ' + str(self.coef) + \
+			   '\nEquation: ' + self.equation
 
 
 	def set_reac_coefs(self, T):
