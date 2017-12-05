@@ -20,6 +20,8 @@ chem3/.idea/modules.xml
 chem3/.idea/workspace.xml
 chem3/flask/app.py
 chem3/flask/f.py
+chem3/flask/rxns_reversible.xml
+chem3/flask/t.xml
 chem3/flask/test.txt
 chem3/flask/static/favicon.ico
 chem3/flask/static/css/bootstrap-grid.css

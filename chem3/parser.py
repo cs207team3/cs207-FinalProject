@@ -149,7 +149,7 @@ def read_data(filename, db_name):
                         coef[key] = float(params_block.find(key).text)
                 reactions.append(chem3.chemkin.Reaction(reactants, products,
                                          reversible, reac_type,
-                                         reac_id, coef_type, coef, equation))
+                                         reac_id, coef_type, coef, equation=equation))
                 data['reactions'][reaction_id] = reactions
 
     except AttributeError as ex:
