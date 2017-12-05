@@ -10,11 +10,15 @@ def get_data(filename):
 
     data = {}
     data['equations'] = []
-    # data['species'] = chemkin_data['species']
+    data['species'] = system.order
     for reaction in system.reactions:
-        print(reaction)
         data['equations'].append(reaction.equation)
     return data, system
+
+def get_rates(system, T, concs):
+    concs = concs.strip().split(',')
+    concs = [float(c) for c in concs]
+    return system.reaction_rate(concs, float(T))
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -33,32 +37,44 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods = ['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if allowed_file(file.filename):
-            file.save(secure_filename(file.filename))
-            flash(file.filename + ' uploaded Successfully!')
+reaction_data = None
+system = None
 
-            data, system = get_data(file.filename)
-            print(data)
-            return redirect(request.url)
-        else:
-            flash('Incorrect file format!')
-            return redirect(request.url)
-
-#-------------------------------- Get T and concs -------------------------------------------#
 @app.route('/', methods = ['GET', 'POST'])
-def upload_text():
+def upload_data():
     if request.method == 'POST':
-        T = request.form['temp']
-        concs = request.form['concs']
-        flash(T + ' ' + concs)
-        return redirect(request.url)        
+        # This is file upload
+        if request.files:
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if allowed_file(file.filename):
+                file.save(secure_filename(file.filename))
+                flash(file.filename + ' uploaded Successfully!')
+
+                global reaction_data, system
+                reaction_data, system = get_data(file.filename)
+                print(reaction_data)
+                return render_template('base.html', data=reaction_data)
+            else:
+                flash('Incorrect file format!')
+                return redirect(request.url)
+
+        # This is form upload of T and concs
+        if request.form:
+            T = request.form['temp']
+            concs = request.form['concs']
+
+            rates = get_rates(system, T, concs)
+
+            species_dic = {}
+            for i in range(len(rates)):
+                species_dic[reaction_data['species'][i]] = rates[i]
+            return render_template('base.html', data=reaction_data, species_dic=species_dic)
+            # return redirect(request.url)
+            # return render_template('base.html', t_concs = [T, concs])
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

@@ -49,6 +49,7 @@
             <form method="POST">
                 <label>Temperature:</label><input name="temp" placeholder="500"/><br>
                 <label>Concentrations:</label><input name="concs" placeholder="0.5, 1, 2.0"/><br>
+                <input type="submit" class="button" value="Calculate" />
             </form>
         </div>
     </div>
@@ -57,27 +58,29 @@
         <div class="col col-md-6" style="border-right: 1px solid #ccc;">
             <h3>Reaction System</h3>
             <p><b>System Species:</b></p>
-            <p>species list here</p>
+            {% if data %}
+                <p> {{ data['species'] }} </p>
+            {% endif %}
             <p><b>System Reactions:</b></p>
             <ol>
-                <li>Reactions</li>
-                <li>List</li>
-                <li>Will</li>
-                <li>Go</li>
-                <li>Here</li>
+                {% if data %}
+                    {% for eq in data['equations'] %}
+                        <li> {{ eq }} </li>
+                    {% endfor %}
+                {% endif %}
             </ol>
         </div>
 
         <div class="col col-md-6">
-            <h3>Reaction Rates (odered by species)</h3>
-            <ol>
-                <li>Reaction</li>
-                <li>Rates</li>
-                <li>Will</li>
-                <li>Go</li>
-                <li>Here</li>
-            </ol>
-            <button type="button" class="button">Calculate System Reaction Rates</button>
+            <h3>Reaction Rates</h3>
+            <!-- <button type="button" class="button">Calculate System Reaction Rates</button> -->
+            <ul>
+                {% if species_dic %}
+                    {% for k, v in species_dic.items() %}
+                        <li> {{ k }} : {{ v }} </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
         </div>
     </div>
     <hr>
