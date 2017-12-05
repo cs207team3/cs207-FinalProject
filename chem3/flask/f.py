@@ -22,9 +22,6 @@ def allowed_file(filename):
 @app.route('/', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
             flash('No selected file')
@@ -40,10 +37,11 @@ def upload_file():
 #-------------------------------- Get T and concs -------------------------------------------#
 @app.route('/', methods = ['GET', 'POST'])
 def upload_text():
-    T = request.form['temp']
-    concs = request.form['concs']
-    print(T, concs)
-    return redirect(url_for('home', messages='Input successfully!'))        
+    if request.method == 'POST':
+        T = request.form['temp']
+        concs = request.form['concs']
+        flash(T + ' ' + concs)
+        return redirect(request.url)        
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
