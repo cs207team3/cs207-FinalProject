@@ -2,7 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import chem3
 from chem3.parser import read_data
 from chem3.chemkin import *
-import os
+import os 
 
 app = Flask(__name__)
  
