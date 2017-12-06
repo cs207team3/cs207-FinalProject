@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chemkin Webapp</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 </head>
@@ -36,20 +36,26 @@
                 <input type="submit" class="button">
             </form>
             {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul class=flashes>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             {% endwith %}
         </div>
         <div class="col col-md-6">
+
             <form method="POST">
-                <label>Temperature:</label><input name="temp" placeholder="500"/><br>
-                <label>Concentrations:</label><input name="concs" placeholder="0.5, 1, 2.0"/><br>
-                <input type="submit" class="button" value="Calculate" />
+                <label>Temperature:</label><input name="temp" placeholder=" example - 500"/><br>
+                {% if data %}
+                <p>
+                    You must input {{ data['species']|length }} concentrations in the same order as the system species:
+                    <br>{{ data['species'] }}.</p>
+                {% endif %}
+                <label>Concentrations:</label><input name="concs" placeholder=" example - 0.5, 1, 2.0"/><br>
+                <input type="submit" class="button" value="Calculate"/>
             </form>
         </div>
     </div>
@@ -59,14 +65,14 @@
             <h3>Reaction System</h3>
             <p><b>System Species:</b></p>
             {% if data %}
-                <p> {{ data['species'] }} </p>
+            <p> {{ data['species'] }} </p>
             {% endif %}
             <p><b>System Reactions:</b></p>
             <ol>
                 {% if data %}
-                    {% for eq in data['equations'] %}
-                        <li> {{ eq }} </li>
-                    {% endfor %}
+                {% for eq in data['equations'] %}
+                <li> {{ eq }}</li>
+                {% endfor %}
                 {% endif %}
             </ol>
         </div>
@@ -76,9 +82,9 @@
             <!-- <button type="button" class="button">Calculate System Reaction Rates</button> -->
             <ul>
                 {% if species_dic %}
-                    {% for k, v in species_dic.items() %}
-                        <li> {{ k }} : {{ v }} </li>
-                    {% endfor %}
+                {% for k, v in species_dic.items() %}
+                <li> {{ k }} : {{ v }}</li>
+                {% endfor %}
                 {% endif %}
             </ul>
         </div>
