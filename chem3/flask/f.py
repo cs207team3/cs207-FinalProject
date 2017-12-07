@@ -30,7 +30,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('base.html')
+    return render_template('test.html')
 
 #-------------------------------- Upload files -------------------------------------------#
 def allowed_file(filename):
@@ -56,7 +56,7 @@ def upload_data():
                 global reaction_data, system
                 reaction_data, system = get_data(file.filename)
                 print(reaction_data)
-                return render_template('base.html', data=reaction_data)
+                return render_template('test.html', data=reaction_data, scroll='hi')
             else:
                 flash('Incorrect file format!')
                 return redirect(request.url)
@@ -71,7 +71,7 @@ def upload_data():
             species_dic = {}
             for i in range(len(rates)):
                 species_dic[reaction_data['species'][i]] = rates[i]
-            return render_template('base.html', data=reaction_data, species_dic=species_dic)
+            return render_template('test.html', data=reaction_data, species_dic=species_dic, scroll='hi')
             # return redirect(request.url)
             # return render_template('base.html', t_concs = [T, concs])
 
