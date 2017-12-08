@@ -108,7 +108,7 @@ class Reaction():
 			   '\nReaction Id: ' + self.reac_id + \
 			   '\nCoefficient Type: ' + self.coef_type + \
 			   '\nCoefficients: ' + str(self.coef) + \
-			   '\nEquation: ' + str(self.equation)
+			   '\nEquation: ' + self.equation
 
 
 	def set_reac_coefs(self, T):
@@ -399,7 +399,7 @@ class ReactionSystem():
 		   reaction rate of each species
 		"""
 		if len(concs) != len(self.order):
-			raise ValueError("Concentration length doesn't match number of species!")
+			raise ValueError("Concentration length does not match number of species!")
 
 		if any(c < 0 for c in concs):
 			raise ValueError('Concentration should not be Negative!')

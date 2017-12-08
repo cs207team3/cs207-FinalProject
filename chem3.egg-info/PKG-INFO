@@ -1,12 +1,11 @@
 Metadata-Version: 1.1
 Name: chem3
-Version: 0.0.post0.dev171+ng83f3a6a.dirty
+Version: 0.0.post0.dev180+ngf105c5b.dirty
 Summary: This is a checmical kinetics library for Harvard University's CS207 course.
 Home-page: UNKNOWN
 Author: Jiacheng Shi, Weihang Zhang, & Andrew Lund
 Author-email: shij@g.harvard.edu, weihangzhang@g.harvard.edu, andrewlund@g.harvard.edu
 License: UNKNOWN
-Description-Content-Type: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
