@@ -14,6 +14,8 @@ There are two ways to use our chemical kinetics library:
 
 For more details about correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml)
 
+---
+
 **Introduction:**
 
 ...Please see the chart below for equation symbols and their meaning...
