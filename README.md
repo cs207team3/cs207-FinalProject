@@ -93,14 +93,14 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 
 ### Basic Usage:
 
-After checking out this repository:
+After cloning this repository:
 1. Follow installation instructions above: `python setup.py install`, `python setup.py test`.
 
 2. Create the reaction system directly from an .xml data file (see 3.1), obtain reaction data by parsing a properly formatted .xml file using the `read_data()` function (see 3.2), or manually create reactions using the constructor in the `Reaction()` class.
 
 #### Code Examples:
 
-3.1 To create a reaction system directly from a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml input file, use the following code.
+3.1 To create a reaction system directly from a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml input file, use the following code. The 'rxns_reversible.xml' file is found in the 'tests' folder of this repository.
 ```
 >>> from chem3.chemkin import *
 >>> from chem3.parser import *
@@ -110,7 +110,7 @@ After checking out this repository:
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 >>> reaction_rates
-[ 7.58800198e+15  -7.55393354e+15  -7.87061311e+15  3.01454055e+13  1.88251887e+14  7.73922038e+15  -8.79625439e+13  -3.31104554e+13]
+[7.58794849e+15 -7.55388022e+15 -7.87055958e+15 3.01455401e+13 1.88251730e+14 7.73916703e+15 -8.79625439e+13 -3.31104554e+13]
 ```
 
 3.2 To calculate the reaction rate of a system, you must specify the current concentration of each species and the temperature under which the reaction takes place. The order of the concentrations will be matched to the order of the reactants list obtained from the .xml file.
@@ -130,7 +130,7 @@ After checking out this repository:
 >>> # calculate reaction rates
 >>> reaction_rates = system.reaction_rate(concs, T)
 >>> reaction_rates
-[2.21453827e+14  -3.51228629e+14  -2.08730411e+14  3.50259248e+13  4.69995361e+13  3.82452786e+14  -7.51717305e+13  -5.08013037e+13]
+[2.23407833e+14 -3.53181969e+14 -2.11084849e+14 3.52252690e+13 4.70006140e+13 3.84606136e+14 -7.51713182e+13 -5.08017161e+13]
 ```
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.
