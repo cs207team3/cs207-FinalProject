@@ -1,17 +1,22 @@
 [![Build Status](https://travis-ci.org/cs207team3/cs207-FinalProject.svg?branch=master)](https://travis-ci.org/cs207team3/cs207-FinalProject.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/cs207team3/cs207-FinalProject/badge.svg?branch=master&maxAge=0)](https://coveralls.io/github/cs207team3/cs207-FinalProject?branch=master&maxAge=0)
 
-## cs207-FinalProject: A Chemical Kinetics Library
+## cs207-FinalProject: A Chemical Kinetics Library and WebApp
 ### Final Project repository for CS207 Team 3
 ##### Team Members: Jiacheng Shi, Weihang Zhang, & Andrew Lund
 
 ---
 
 ### User's Guide:
+There are two ways to use our chemical kinetics library:
+1. Download and install this repository following the instruction in the **Library Installation** section below.
+2. Visit our chemkin [webapp](http://chemkin.pythonanywhere.com/) and upload your properly formatted .xml reactions file.
 
-...Please see the chart below for equation symbols and their meaning...
+For more details about correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml)
 
 **Introduction:**
+
+...Please see the chart below for equation symbols and their meaning...
 
 The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions can be reversible or irreversible, and should be elementary of the form:
 
@@ -54,9 +59,8 @@ This library will read in the relevant NASA polynomial coefficients from a datab
 
 ------
 
-### Installation:
-
-All the code related to this library can be found in this repository. This includes the NASA polynomials stored as an SQL database `NASA.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
+### Library Installation:
+All the code related to this library can be found in this repository. This includes the NASA polynomials stored as an SQL database `nasa.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
 
 To install this library and run the test suite:
 1. Download or clone this repository.
