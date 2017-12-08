@@ -137,12 +137,30 @@ Note: The order the user inputs reaction concentrations will be matched to the r
 
 ----
 
-### Future Feature:
-The future feature of this library is a Graphical User Interface (GUI) for use with these chemical kinetics calculations. The GUI will be included during installation of the library.
+### New Feature:
+The newest feature of this library is an accompanying webapp at [http://chemkin.pythonanywhere.com/](http://chemkin.pythonanywhere.com/). The webapp includes all the internal code of this library, but offers the convenience of not needing to install this library ahead of time. You can upload a porperly formatted .xml file and receive the same reaction rate outputs as using this library.
+
+**Webapp Usage:**
+
+Navigate to the webapp homepage:
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp1.png "webapp1")
+
+Upload a properly formatted .xml file using 'Choose File' and click 'SUBMIT'. If your file is not properly formatted you will recieve an 'Incorrect file format!' message. After uploading, your reactions will be displayed in the 'REACTION SYSTEM' column:
+
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp2.png "webapp2")
+
+
 
 **Motivation and Description:**
 
-The biggest motivation for providing users of this library a GUI is that it can offer users with basic knowledge of python the ability to run their chemical kinetics calculations with confidence. A GUI will offer a user-friendly tool with the same functionality of the underlying library. Users will be restricted to specific inputs and offered hints or recommendations directly in the GUI to ensure they use the library correctly. Most users will be familiar with GUIs from their day-to-day use of modern operating systems, so adding a GUI makes sense from a basic usability standpoint.
+The biggest motivation for providing users of this library a webapp is that it can offer users with basic knowledge of python the ability to run their chemical kinetics calculations with confidence from a familiar looking web-based user-interface. Our webapp offers a user-friendly tool with the same functionality of this python library. Users will be restricted to specific inputs and offered hints or recommendations directly in the webapp to ensure they use the underlying library correctly. Most users will be familiar with webapps from their day-to-day use of modern operating systems and web browsers, so adding a webapp to accompany this library makes sense from a basic usability standpoint.
+
+**Implementation Details**
+
+All webapp implementation code can be found at this [Github Repository](https://github.com/cs207team3/chemkin_web).
+
+The site is hosted by [pythonanywhere](https://www.pythonanywhere.com/) and uses their internal terminal to employ the same installation instructions as this library along with necessary html and webapp-specific python files.
 
 **How the GUI will fit into this code base (and package):**
 
