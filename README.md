@@ -91,7 +91,7 @@ If the .xml file is not properly formatted, the parser.py will print a warning a
 
 ----
 
-### Basic Usage:
+### Basic Usage and Examples:
 
 After cloning this repository:
 1. Follow installation instructions above: `python setup.py install`, `python setup.py test`.
@@ -137,30 +137,42 @@ Note: The order the user inputs reaction concentrations will be matched to the r
 
 ----
 
-### New Feature:
-The newest feature of this library is an accompanying webapp at [http://chemkin.pythonanywhere.com/](http://chemkin.pythonanywhere.com/). The webapp includes all the internal code of this library, but offers the convenience of not needing to install this library ahead of time. You can upload a porperly formatted .xml file and receive the same reaction rate outputs as using this library.
+### New Feature - A Chemkin Webapp:
+The newest exciting feature of this library is an accompanying webapp found at [http://chemkin.pythonanywhere.com/](http://chemkin.pythonanywhere.com/). The webapp includes all the code inherent to this library, but offers the convenience of a browser based application and eliminates the need to install this library ahead of time. You can upload a porperly formatted .xml file just like with the library and receive the same reaction rate outputs as using this library.
 
 **Webapp Usage:**
 
-Navigate to the webapp homepage:
+Navigate to the webapp [homepage](http://chemkin.pythonanywhere.com/):
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp1.png "webapp1")
 
-Upload a properly formatted .xml file using 'Choose File' and click 'SUBMIT'. If your file is not properly formatted you will recieve an 'Incorrect file format!' message. After uploading, your reactions will be displayed in the 'REACTION SYSTEM' column:
+Upload a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml file using the 'Choose File' button and click 'SUBMIT'. If your file is not properly formatted you will receive an 'Incorrect file format!' message. After uploading, your reactions will be displayed in the 'REACTION SYSTEM' column below:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp2.png "webapp2")
 
+Input temperatures (within the NASA coefficient temperature range for each species) as well as species concentrations (in the same order as the .xml input file) using the gray 'example' input as a guide and click 'CALCULATE.' You will receive applicable error messages if you leave an input box blank, your temperature is outside the coefficient range, or your concentrations are too short, long, or strings. Your system reaction rates will be displayed in the right column as shown below.
 
+![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp3.png "webapp3")
+
+We hope you enjoy this new user-friendly feature.
 
 **Motivation and Description:**
 
-The biggest motivation for providing users of this library a webapp is that it can offer users with basic knowledge of python the ability to run their chemical kinetics calculations with confidence from a familiar looking web-based user-interface. Our webapp offers a user-friendly tool with the same functionality of this python library. Users will be restricted to specific inputs and offered hints or recommendations directly in the webapp to ensure they use the underlying library correctly. Most users will be familiar with webapps from their day-to-day use of modern operating systems and web browsers, so adding a webapp to accompany this library makes sense from a basic usability standpoint.
+The primary motivation for providing users of this library a webapp is that it can offer users with little or no knowledge of python the ability to run their chemical kinetics calculations with confidence from a familiar looking web-based user-interface.
+
+Our webapp is a user-friendly chemical kinetics tool with the same underlying functionality of this python library. Users will be restricted to specific inputs and offered hints or recommendations directly in the webapp to ensure they use the underlying library correctly.
+
+Most users will be familiar with webapps from their day-to-day use of modern operating systems and web browsers, so adding a webapp to accompany this library makes sense from a basic usability standpoint.
 
 **Implementation Details**
 
-All webapp implementation code can be found at this [Github Repository](https://github.com/cs207team3/chemkin_web).
+All webapp implementation code can be found at this [Github Repository](https://github.com/cs207team3/chemkin_web). We used a separate repository for the webapp implementation in order to ensure proper indication from the Travis CI and Coveralls badges of this repository.
 
-The site is hosted by [pythonanywhere](https://www.pythonanywhere.com/) and uses their internal terminal to employ the same installation instructions as this library along with necessary html and webapp-specific python files.
+The webapp is hosted by [pythonanywhere](https://www.pythonanywhere.com/) and uses their internal terminal to employ the same installation procedure as this library along with the necessary html and webapp-specific python files to allow it to function in the browser.
+
+
+
+Implementation details including any new modules, classes, or methods. I can find the exact implementation in your code base, so your job here is to make sure I can understand why you made certain design decisions and how everything works together.
 
 **How the GUI will fit into this code base (and package):**
 
