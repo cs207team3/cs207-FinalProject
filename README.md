@@ -9,8 +9,8 @@
 
 ### User's Guide:
 There are two ways to use our chemical kinetics library:
-1. Download and install this repository following the instruction in the **Library Installation** section below.
-2. Visit our chemkin [webapp](http://chemkin.pythonanywhere.com/) and upload your properly formatted .xml reactions file.
+1. Download and install this repository by following the instructions in the **Library Installation** section below.
+2. Visit our new [Chemkin Webapp](http://chemkin.pythonanywhere.com/) and upload your properly formatted .xml reactions file.
 
 For more details about correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml)
 
@@ -50,7 +50,7 @@ where:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/equilibrium_coeff2.png "Equilibrium Coefficient2")
 
-P0 is the pressure of the reactor (we will use 100,000 Pa in this library). Using the NASA polynomials and relationships between the specific heat, enthalpy and entropy, we use the following equations to compute the backwards reaction rate coefficient for elementary reversible reactions:
+P0 is the pressure of the reactor (we will use 100,000 Pa in this library). Using the NASA polynomial coefficients and relationships between the specific heat, enthalpy and entropy, we use the following equations to compute the backwards reaction rate coefficient for elementary reversible reactions:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/NASA_polynomials.png "NASA Polynomials")
 
@@ -62,7 +62,7 @@ This library will read in the relevant NASA polynomial coefficients from a datab
 ------
 
 ### Library Installation:
-All the code related to this library can be found in this repository. This includes the NASA polynomials stored as an SQL database `nasa.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
+All the code related to this library can be found in this repository. This includes the NASA polynomial coefficients stored as an SQL database `nasa.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
 
 To install this library and run the test suite:
 1. Download or clone this repository.
@@ -71,7 +71,7 @@ To install this library and run the test suite:
 4. Enter `python setup.py test` - This will run the library's test suite.
 5. You are now ready to start calculating reaction rates.
 
-See the "Input Format" and "Basic Usage" for more step-by-step instructions.
+See the "Input Format" and "Basic Usage and Examples" sections below for more step-by-step instructions.
 
 ----
 
@@ -138,7 +138,7 @@ Note: The order the user inputs reaction concentrations will be matched to the r
 ----
 
 ### New Feature - A Chemkin Webapp:
-The newest exciting feature of this library is an accompanying webapp found at [http://chemkin.pythonanywhere.com/](http://chemkin.pythonanywhere.com/). The webapp includes all the code inherent to this library, but offers the convenience of a browser based application and eliminates the need to install this library ahead of time. You can upload a porperly formatted .xml file just like with the library and receive the same reaction rate outputs as using this library.
+The newest exciting feature of this library is an accompanying webapp found at [http://chemkin.pythonanywhere.com/](http://chemkin.pythonanywhere.com/). The webapp includes all the code inherent to this library, but offers the convenience of a browser based application and eliminates the need to install this library ahead of time. You can upload a properly formatted .xml file just like with the library and receive the same reaction rate outputs as using this library.
 
 **Webapp Usage:**
 
@@ -160,7 +160,7 @@ We hope you enjoy this new user-friendly feature.
 
 The primary motivation for providing users of this library a webapp is that it can offer users with little or no knowledge of python the ability to run their chemical kinetics calculations with confidence from a familiar looking web-based user-interface.
 
-Our webapp is a user-friendly chemical kinetics tool with the same underlying functionality of this python library. Users will be restricted to specific inputs and offered hints or recommendations directly in the webapp to ensure they use the underlying library correctly.
+Our webapp is a user-friendly chemical kinetics reaction rate tool with the same underlying functionality of this python library. Users will be restricted to specific inputs and offered hints or recommendations directly in the webapp to ensure they use the underlying library correctly.
 
 Most users will be familiar with webapps from their day-to-day use of modern operating systems and web browsers, so adding a webapp to accompany this library makes sense from a basic usability standpoint.
 
@@ -170,44 +170,6 @@ All webapp implementation code can be found at this [Github Repository](https://
 
 The webapp is hosted by [pythonanywhere](https://www.pythonanywhere.com/) and uses their internal terminal to employ the same installation procedure as this library along with the necessary html and webapp-specific python files to allow it to function in the browser.
 
+In order to implement our webapp, we relied heavily on the Flask python microframework. More information about Flask can be found [here](http://flask.pocoo.org/).
 
-
-Implementation details including any new modules, classes, or methods. I can find the exact implementation in your code base, so your job here is to make sure I can understand why you made certain design decisions and how everything works together.
-
-**How the GUI will fit into this code base (and package):**
-
-The GUI will be integrated into the existing code as a graphical overlay to the underlying modules. It will be installed as part of the `python setup.py install` operation.
-
-**Modules to be written:**
-
-* gui.py
-
-**Methods to implement:**
-
-* Several classes (gui, interface, windows)
-* Event listeners for buttons to collect input
-* Parsers for button listeners (including checks for proper format)
-* Popup for system reaction rates
-
-**Envisioned user experience:**
-
-After installing the underlying library, the user will run a command in their terminal to bring up the GUI. They will be presented with a welcome window that offers radio button options to either `Use reaction input file` or `Manually input reactions`. There should be a link to see a `LINK: Properly formatted input file`.
-
-If the user has an input file, there will be a directory search function to find the input file.
-
-If they want to input reactions manually, there will be a series of input boxes to add applicable system reaction information found in a properly formatted file: `species, reaction id, reversible?, type, equation, type of reaction rate coefficient, A, b, E, reactants, and products`.
-
-The GUI will display all the reactions in the GUI after parsing the input file or manual user addition.
-
-After the GUI has the reactions, the user specifies specie concentrations (in the order specified by the species array).
-
-There will be a `Calculate Reaction Rates` button, which presents the system reaction rates at the bottom of the window.
-
-Rough GUI layout:
-
-![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/gui.png "gui")
-
-**Required external dependencies:**
-
-* Tkinter
-* PyQt
+The webapp uses a combination of python, html, javascript, and css to both look nice and provide the same functionality as the underlying chemical kinetics python library. The app.py module was specifically written to interface with our 'chem3' library and feed the html and javascript information to render on the site. App.py includes new methods 'get_data(),' 'get_rates(),' 'allowed_file(),' 'home(),' and 'upload_data().' The 'base.html' and 'test.html' contain the basic web-design framework, and use the 'grascale.js' javascript library for overall website design and animation implementation.
