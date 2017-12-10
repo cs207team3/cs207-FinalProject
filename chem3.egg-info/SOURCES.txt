@@ -35,6 +35,9 @@ images/progress_rate.png
 images/reaction_rate.png
 images/reversible_reaction_form.png
 images/variables.png
+images/webapp1.png
+images/webapp2.png
+images/webapp3.png
 tests/conftest.py
 tests/nasa.sqlite
 tests/rxns_reversible.xml

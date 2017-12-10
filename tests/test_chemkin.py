@@ -110,7 +110,7 @@ def test_full_process():
     concs = [2., 1., .5, 1., 1.]
     T = 1500
     system = ReactionSystem(data['reactions']['test_mechanism'], data['species'])
-    assert(len(system) == 0)
+    assert(len(system) == 3)
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
 
@@ -147,7 +147,7 @@ def test_system_read_from_file_name():
     concs = [2., 1., .5, 1., 1.]
     T = 1500
     system = ReactionSystem(filename=test_file)
-    assert(len(system) == 0)
+    assert(len(system) == 3)
     expected = np.array([-2.81117621e+08, -2.85597559e+08, 5.66715180e+08, 4.47993847e+06, -4.47993847e+06])
     assert (np.all(np.isclose(system.reaction_rate(concs, T), expected)))
     
