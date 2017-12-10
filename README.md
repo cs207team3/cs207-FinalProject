@@ -12,15 +12,17 @@ There are two ways to use our chemical kinetics library:
 1. Download and install this repository by following the instructions in the **Library Installation** section below.
 2. Visit our new [Chemkin Webapp](http://chemkin.pythonanywhere.com/) and upload your properly formatted .xml reactions file.
 
-For more details about correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml)
+For more details about correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml).
 
 ---
 
 **Introduction:**
 
-...Please see the chart below for equation symbols and their meaning...
+*Please refer to the table below for equation symbols and their meaning*
 
-The purpose of our library is to return the reaction rate of a system of N species undergoing M reactions. The reactions can be reversible or irreversible, and should be elementary of the form:
+For more in-depth information regarding chemical kinetics, please visit the "Chemical kinetics" [Wikipedia page](https://en.wikipedia.org/wiki/Chemical_kinetics).
+
+The purpose of this library is to return the reaction rate of a system of *N* species undergoing *M* reactions. The reactions can be reversible or irreversible, and should be elementary of the form:
 
 Irreversible:
 
@@ -36,11 +38,11 @@ The progress rate for each reaction is given by:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/progress_rate.png "Progress Rate")
 
-The reaction rate of each specie i in an irreversible reaction can be written as:
+The reaction rate of each specie *i* in an irreversible reaction can be written as:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/reaction_rate.png "Reaction Rate")
 
-The reaction rate for each specie in an elementary reversible reaction can be written as:
+The reaction rate coefficient for each specie in an elementary reversible reaction *j* can be written as:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/backward_reaction_rate.png "Backward_Reaction Rate")
 
@@ -50,11 +52,11 @@ where:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/equilibrium_coeff2.png "Equilibrium Coefficient2")
 
-P0 is the pressure of the reactor (we will use 100,000 Pa in this library). Using the NASA polynomial coefficients and relationships between the specific heat, enthalpy and entropy, we use the following equations to compute the backwards reaction rate coefficient for elementary reversible reactions:
+P0 is the pressure of the reactor (we will use 100,000 Pa in this library). Using the NASA polynomial coefficients and relationships between specific heat, enthalpy and entropy, we use the following equations to compute the backwards reaction rate coefficient for elementary reversible reactions:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/NASA_polynomials.png "NASA Polynomials")
 
-This library will read in the relevant NASA polynomial coefficients from a database and store them in a data structure based on which species the user specifies in the .xml input file. See more below in the "Input Format" section.
+This library will read in the relevant NASA polynomial coefficients from an SQL database and store them in a data structure based on which species the user specifies in the .xml input file. See more about input files below in the **Input Format** section.
 
 ----
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/variables.png "Variables")
@@ -62,7 +64,7 @@ This library will read in the relevant NASA polynomial coefficients from a datab
 ------
 
 ### Library Installation:
-All the code related to this library can be found in this repository. This includes the NASA polynomial coefficients stored as an SQL database `nasa.sqlite` in order to calculate the backwards reaction rate coefficients for reversible elementary reactions.
+All the code related to this library can be found in this repository. This includes the NASA polynomial coefficients stored as an SQL database, `nasa.sqlite`, used to calculate the backwards reaction rate coefficients for reversible elementary reactions.
 
 To install this library and run the test suite:
 1. Download or clone this repository.
@@ -71,21 +73,21 @@ To install this library and run the test suite:
 4. Enter `python setup.py test` - This will run the library's test suite.
 5. You are now ready to start calculating reaction rates.
 
-See the "Input Format" and "Basic Usage and Examples" sections below for more step-by-step instructions.
+See the **Input Format** and **Basic Usage and Examples** sections below for more step-by-step instructions.
 
 ----
 
 ### Input Format
 
-The data of the relative reactions can be stored in an .xml file.
+The data of the relative reactions must be stored in an .xml file.
 
-The user needs to have a **\<phase\>** tag to specify a list of species involved in the reaction. Pay particular attention to the `reversible="no"` or `reversible="yes"` in the **\<reaction>** tag when specifying reaction types. The order should also be consistent with the input for concentrations when a user calculates the reaction rates.
+The user needs to have a **\<phase\>** tag to specify a list of species involved in the reaction. Pay particular attention to the `reversible="no"` or `reversible="yes"` in the **\<reaction>** tag when specifying reaction types. The order should be consistent with the input for concentrations when a user calculates the reaction rates.
 
-The second tag of the .xml file needs to store reaction information wrapped by **\<reactionData\>**. The parser supports multiple reactionData tags when parsing the .xml file.
+The second tag of the .xml file needs to store reaction information inside the **\<reactionData\>** tag. This library's parser supports multiple **\<reactionData\>** tags when parsing the .xml file.
 
 The user also needs to specify reaction temperature.
 
-For more details of correctly formatting the input file, please refer to the [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml).
+For more details of correctly formatting the input file, please refer to this [sample input file](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml).
 
 If the .xml file is not properly formatted, the parser.py will print a warning and return an empty data structure to the user.
 
@@ -133,7 +135,7 @@ After cloning this repository:
 [2.23407833e+14 -3.53181969e+14 -2.11084849e+14 3.52252690e+13 4.70006140e+13 3.84606136e+14 -7.51713182e+13 -5.08017161e+13]
 ```
 
-Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the "phase" tag in the .xml file.
+Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the **\<phase\>** tag in the .xml file.
 
 ----
 
@@ -142,11 +144,11 @@ The newest exciting feature of this library is an accompanying webapp found at [
 
 **Webapp Usage:**
 
-Navigate to the webapp [homepage](http://chemkin.pythonanywhere.com/):
+Navigate to the webapp [homepage](http://chemkin.pythonanywhere.com/) using your browser of choice:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp1.png "webapp1")
 
-Upload a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml file using the 'Choose File' button and click 'SUBMIT'. If your file is not properly formatted you will receive an 'Incorrect file format!' message. After uploading, your reactions will be displayed in the 'REACTION SYSTEM' column below:
+Upload a [properly formatted](https://github.com/cs207team3/cs207-FinalProject/blob/master/tests/t.xml) .xml file using the 'Choose File' button and click 'SUBMIT'. If your file is not properly formatted, you will receive an 'Incorrect file format!' message. After uploading, your reactions will be displayed in the 'REACTION SYSTEM' column as shown below:
 
 ![img](https://github.com/cs207team3/cs207-FinalProject/blob/master/images/webapp2.png "webapp2")
 
