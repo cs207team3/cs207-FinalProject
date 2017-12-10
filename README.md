@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/cs207team3/cs207-FinalProject.svg?branch=master)](https://travis-ci.org/cs207team3/cs207-FinalProject.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/cs207team3/cs207-FinalProject/badge.svg?branch=master&maxAge=0)](https://coveralls.io/github/cs207team3/cs207-FinalProject?branch=master&maxAge=0)
 
-## cs207-FinalProject: A Chemical Kinetics Library and WebApp
+## cs207-FinalProject: "chem3" A Chemical Kinetics Library and WebApp
 ### Final Project repository for CS207 Team 3
 ##### Team Members: Jiacheng Shi, Weihang Zhang, & Andrew Lund
 ##### New Chemkin Webapp [Github Repository](https://github.com/cs207team3/chemkin_web)
@@ -78,7 +78,7 @@ See the **Input Format** and **Basic Usage and Examples** sections below for mor
 
 ----
 
-### Input Format
+### Input Format:
 
 The data of the relative reactions must be stored in an .xml file.
 
@@ -137,6 +137,12 @@ After cloning this repository:
 ```
 
 Note: The order the user inputs reaction concentrations will be matched to the reactants pulled from the **\<phase\>** tag in the .xml file.
+
+----
+
+#### Uninstall Instructions:
+
+To uninstall this library, open a terminal window and enter `pip uninstall chem3`.
 
 ----
 
