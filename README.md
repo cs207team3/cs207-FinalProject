@@ -4,6 +4,7 @@
 ## cs207-FinalProject: A Chemical Kinetics Library and WebApp
 ### Final Project repository for CS207 Team 3
 ##### Team Members: Jiacheng Shi, Weihang Zhang, & Andrew Lund
+##### New Chemkin Webapp [Github Repository](https://github.com/cs207team3/chemkin_web)
 
 ---
 
